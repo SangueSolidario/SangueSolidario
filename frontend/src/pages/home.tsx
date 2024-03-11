@@ -6,10 +6,12 @@ import {
   UserRound,
   Video,
 } from "lucide-react";
-import { NavBar } from "../components/navbar";
-import Joao from "../assets/joao.jpg";
-import Tiago from "../assets/tiago.jpg";
+import Doctors from "../assets/doctor.svg";
 import Goncalo from "../assets/goncalo.jpg";
+import Joao from "../assets/joao.jpg";
+import Medic from "../assets/medic.svg";
+import Tiago from "../assets/tiago.jpg";
+import { NavBar } from "../components/navbar";
 
 export function Home() {
   return (
@@ -19,19 +21,20 @@ export function Home() {
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-              Enhance Crosswalk Safety
+              Potenciar os esforços de dádiva{" "}
               <br className="hidden lg:inline-block" />
-              with Our IoT Device
+              de sangue através da tecnologia
             </h1>
             <p className="mb-8 leading-relaxed">
-              Experience the power of connected technology with our cutting-edge
-              solution. Utilizing embedded systems equipped with object
-              detection models, our app swiftly identifies and flags damaged
-              crosswalks, ensuring pedestrian safety is never compromised.
+              Descubra o potencial revolucionário do Sangue Solidário, a nossa
+              inovadora aplicação web concebida para agilizar os processos de
+              dádiva de sangue e aumentar o envolvimento da comunidade. O Sangue
+              Solidário simplifica a experiência da dádiva de sangue, tornando
+              mais fácil do que nunca salvar vidas.
             </p>
             <div className="flex justify-center">
               <button className="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
-                Discover
+                Explore
               </button>
             </div>
           </div>
@@ -39,83 +42,12 @@ export function Home() {
             <img
               className="object-cover object-center rounded"
               alt="hero"
-              src="https://dummyimage.com/720x600/edf2f7/a5afbd"
+              src={Medic}
             />
           </div>
         </div>
       </section>
 
-      <section className="text-gray-700 body-font border-t border-gray-200">
-        <div className="container px-5 py-24 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
-            <img
-              alt="feature"
-              className="object-cover object-center h-full w-full"
-              src="https://dummyimage.com/600x600/edf2f7/a5afbd"
-            />
-          </div>
-          <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
-            <div className="flex flex-col mb-10 lg:items-start items-center">
-              <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <Activity />
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  Raspberry PI
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Enhance pedestrian safety with Raspberry Pi. Detect crosswalks
-                  using advanced algorithms, integrating seamlessly into IoT
-                  solutions for real-time monitoring and urban mobility
-                  improvements.
-                </p>
-                <a className="mt-3 text-red-500 inline-flex items-center">
-                  Learn More
-                  <ArrowRight size={20} className="ml-1" />
-                </a>
-              </div>
-            </div>
-            <div className="flex flex-col mb-10 lg:items-start items-center">
-              <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <Video />
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  160º Wide Angle Camera
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Experience enhanced perspectives with our 160º Wide Angle
-                  Camera. Capture stunning vistas and dynamic scenes
-                  effortlessly for unparalleled visual impact.
-                </p>
-                <a className="mt-3 text-red-500 inline-flex items-center">
-                  Learn More
-                  <ArrowRight size={20} className="ml-1" />
-                </a>
-              </div>
-            </div>
-            <div className="flex flex-col mb-10 lg:items-start items-center">
-              <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <UserRound />
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  GPS Module
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Seamlessly integrate into systems for accurate geolocation,
-                  enhancing safety measures by facilitating prompt repairs and
-                  maintenance.
-                </p>
-                <a className="mt-3 text-red-500 inline-flex items-center">
-                  Learn More
-                  <ArrowRight size={20} className="ml-1" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="text-gray-700 body-font border-t border-gray-200">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">
@@ -123,7 +55,7 @@ export function Home() {
               SangueSolidario
             </h2>
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-              Testimonials
+              Testemunhos
             </h1>
           </div>
           <div className="flex flex-wrap -m-4">
@@ -190,6 +122,77 @@ export function Home() {
                     <ArrowRight size={20} className="ml-1" />
                   </a>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="text-gray-700 body-font border-t border-gray-200">
+        <div className="container px-5 py-24 mx-auto flex flex-wrap">
+          <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
+            <img
+              alt="feature"
+              className="object-cover h-full w-full"
+              src={Doctors}
+            />
+          </div>
+          <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
+            <div className="flex flex-col mb-10 lg:items-start items-center">
+              <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
+                <Activity />
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                  Raspberry PI
+                </h2>
+                <p className="leading-relaxed text-base">
+                  Enhance pedestrian safety with Raspberry Pi. Detect crosswalks
+                  using advanced algorithms, integrating seamlessly into IoT
+                  solutions for real-time monitoring and urban mobility
+                  improvements.
+                </p>
+                <a className="mt-3 text-red-500 inline-flex items-center">
+                  Learn More
+                  <ArrowRight size={20} className="ml-1" />
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col mb-10 lg:items-start items-center">
+              <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
+                <Video />
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                  160º Wide Angle Camera
+                </h2>
+                <p className="leading-relaxed text-base">
+                  Experience enhanced perspectives with our 160º Wide Angle
+                  Camera. Capture stunning vistas and dynamic scenes
+                  effortlessly for unparalleled visual impact.
+                </p>
+                <a className="mt-3 text-red-500 inline-flex items-center">
+                  Learn More
+                  <ArrowRight size={20} className="ml-1" />
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col mb-10 lg:items-start items-center">
+              <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
+                <UserRound />
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                  GPS Module
+                </h2>
+                <p className="leading-relaxed text-base">
+                  Seamlessly integrate into systems for accurate geolocation,
+                  enhancing safety measures by facilitating prompt repairs and
+                  maintenance.
+                </p>
+                <a className="mt-3 text-red-500 inline-flex items-center">
+                  Learn More
+                  <ArrowRight size={20} className="ml-1" />
+                </a>
               </div>
             </div>
           </div>

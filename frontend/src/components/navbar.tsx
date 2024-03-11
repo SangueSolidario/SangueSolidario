@@ -13,9 +13,9 @@ export function NavBar() {
           <span className="ml-3 text-xl">SangueSolidario</span>
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <Link to={"/dashboard"} className="mr-5 hover:text-gray-900">
+          {/* <Link to={"/dashboard"} className="mr-5 hover:text-gray-900">
             Dashboard
-          </Link>
+          </Link> */}
         </nav>
       </div>
     </header>
