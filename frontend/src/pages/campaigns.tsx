@@ -3,7 +3,7 @@ import { Map } from "@/components/map";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 
-export default function Campanhas() {
+export function Campaigns() {
   const campanhas = [
     {
       ID: "1",
@@ -53,9 +53,9 @@ export default function Campanhas() {
   return (
     <div className="overflow-y-hidden h-screen">
       <NavBar />
-      <div className="container flex flex-1 mx-auto px-5 pt-20 md:flex-row space-x-10">
+      <div className="container flex flex-1 mx-auto pt-20 md:flex-row space-x-5">
         <aside className="overflow-auto h-[75vh] w-[45vw]">
-          <div className="flex flex-wrap items-center justify-center p-5 space-y-3 rounded-md w-[20vw] h-40 border-dashed border-2">
+          <div className="flex flex-wrap items-center justify-center space-y-3 rounded-md w-[20vw] h-40 border-dashed border-2">
             <CirclePlus className="text-slate-300" size={50} />
           </div>
           {campanhas.map((campanha) => (

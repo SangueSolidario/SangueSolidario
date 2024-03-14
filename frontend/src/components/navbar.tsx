@@ -16,7 +16,7 @@ export function NavBar() {
           <Link to={"/campanhas"} className="mr-5 hover:text-gray-900">
             Campanhas
           </Link>
-          <Link to={"/login"} className="mr-5 hover:text-gray-900">
+          <Link to={"/perfil"} className="mr-5 hover:text-gray-900">
             Perfil
           </Link>
           <Link to={"/login"} className="mr-5 hover:text-gray-900">

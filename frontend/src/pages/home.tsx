@@ -6,7 +6,6 @@ import {
   UserRound,
   Video,
 } from "lucide-react";
-import Doctors from "../assets/doctor.svg";
 import Pacient from "../assets/pacient.svg";
 
 import Goncalo from "../assets/goncalo.jpg";
