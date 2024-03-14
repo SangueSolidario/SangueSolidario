@@ -7,6 +7,8 @@ import {
   Video,
 } from "lucide-react";
 import Doctors from "../assets/doctor.svg";
+import Pacient from "../assets/pacient.svg";
+
 import Goncalo from "../assets/goncalo.jpg";
 import Joao from "../assets/joao.jpg";
 import Medic from "../assets/medic.svg";
@@ -17,7 +19,7 @@ export function Home() {
   return (
     <div>
       <NavBar />
-      <section className="text-gray-700 body-font">
+      <section className="text-gray-700 body-font h-[90vh] flex justify-center">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
@@ -28,9 +30,9 @@ export function Home() {
             <p className="mb-8 leading-relaxed">
               Descubra o potencial revolucionário do Sangue Solidário, a nossa
               inovadora aplicação web concebida para agilizar os processos de
-              dádiva de sangue e aumentar o envolvimento da comunidade. O Sangue
-              Solidário simplifica a experiência da dádiva de sangue, tornando
-              mais fácil do que nunca salvar vidas.
+              dádiva de sangue e aumentar o envolvimento da comunidade.
+              Simplifique a experiência da dádiva de sangue, tornando mais fácil
+              do que nunca para salvar vidas.
             </p>
             <div className="flex justify-center">
               <button className="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
@@ -129,12 +131,8 @@ export function Home() {
       </section>
       <section className="text-gray-700 body-font border-t border-gray-200">
         <div className="container px-5 py-24 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
-            <img
-              alt="feature"
-              className="object-cover h-full w-full"
-              src={Doctors}
-            />
+          <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden flex flex-wrap justify-center items-center">
+            <img alt="feature" className="object-cover" src={Pacient} />
           </div>
           <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
             <div className="flex flex-col mb-10 lg:items-start items-center">
