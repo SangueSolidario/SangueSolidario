@@ -1,5 +1,4 @@
 import { User2, X } from "lucide-react";
-import React from "react";
 
 interface FamiliarMemberCardProps {
   familiar: {
