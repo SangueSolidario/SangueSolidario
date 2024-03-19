@@ -6,5 +6,5 @@ Sangue Solidário é uma aplicação web dedicada a conectar doadores de sangue 
 
 - Visualizar as próximas campanhas de doação de sangue.
 - Registrar-se como doador e encontrar campanhas próximas.
-- Gerenciar os tipos sanguíneos de familiares e receber notificações relevantes.
+- Gerir os tipos sanguíneos de familiares e receber notificações relevantes.
 - Oferecer informações sobre a importância da doação de sangue e seus benefícios
