@@ -6,12 +6,12 @@ import {
   UserRound,
   Video,
 } from "lucide-react";
-import Pacient from "../assets/pacient.svg";
+import Pacient from "@/assets/pacient.svg";
+import Goncalo from "@/assets/goncalo.jpg";
+import Joao from "@/assets/joao.jpg";
+import Medic from "@/assets/medic.svg";
+import Tiago from "@/assets/tiago.jpg";
 
-import Goncalo from "../assets/goncalo.jpg";
-import Joao from "../assets/joao.jpg";
-import Medic from "../assets/medic.svg";
-import Tiago from "../assets/tiago.jpg";
 import { NavBar } from "../components/navbar";
 
 export function Home() {
