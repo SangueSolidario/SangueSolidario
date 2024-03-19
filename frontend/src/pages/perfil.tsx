@@ -1,6 +1,6 @@
 import { FamilyMemberCard } from "@/components/family-member-card";
 import { NavBar } from "@/components/navbar";
-import NewfamilyMember from "@/components/new-family-member";
+import { NewfamilyMember } from "@/components/new-family-member";
 
 export function Perfil() {
   const familiares = [

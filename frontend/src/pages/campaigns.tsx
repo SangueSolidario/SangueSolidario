@@ -1,6 +1,7 @@
+import { DatePicker } from "@/components/date-picker";
 import { Map } from "@/components/map";
 import { NavBar } from "@/components/navbar";
-import { DatePicker } from "@/components/date-picker";
+import { SelectBlood } from "@/components/select-blood";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,7 +12,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,7 +23,6 @@ import { CirclePlus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { SelectBlood } from "@/components/select-blood";
 export interface Campaign {
   ID: string;
   Nome: string;
@@ -120,7 +119,7 @@ export function Campaigns() {
       <NavBar />
       <div className="container flex flex-1 mx-auto pt-20 md:flex-row space-x-5">
         <aside className="overflow-auto h-[75vh] w-[45vw] px-5">
-          <div className="flex flex-wrap items-center justify-center space-y-3 rounded-md h-40 border-dashed border-2">
+          <div className="flex flex-wrap items-center justify-center space-y-3 rounded-md h-40 border-dashed border-2 hover:bg-slate-50">
             <Dialog>
               <DialogTrigger className="flex flex-col items-center justify-center">
                 <CirclePlus className="text-slate-300" size={50} />
@@ -209,7 +208,7 @@ export function Campaigns() {
           </div>
 
           {campanhas.map((campanha) => (
-            <div className="mt-5 p-5 space-y-3 border rounded-md h-60 hover:shadow-lg transition duration-300 transform hover:scale-105">
+            <div className="mt-5 p-5 space-y-3 border rounded-md h-60 hover:shadow-lg transition duration-300 transform hover:scale-105 group/item">
               <div className="flex items-center justify-between">
                 <p className="font-bold text-lg">{campanha.Nome}</p>
                 <span className="text-green-500 font-bold">
@@ -230,7 +229,7 @@ export function Campaigns() {
                   Termina em <span className="font-bold">25 dias!</span>
                 </p>
                 <Button
-                  className="bg-red-400 font-bold hover:bg-red-100 hover:text-black"
+                  className="bg-red-400 font-bold invisible group-hover/item:visible transition-all duration-300 ease-linear hover:bg-red-100 hover:text-black"
                   onClick={() => setSelectedCampaignID(campanha.ID)}
                 >
                   Participar

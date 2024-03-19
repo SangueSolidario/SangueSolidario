@@ -3,12 +3,12 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { CampaignSchema } from "@/pages/campaigns";
 import { ControllerRenderProps } from "react-hook-form";
+import { FamilySchema } from "./new-family-member";
 
 enum BloodType {
   A = "A",
@@ -17,15 +17,16 @@ enum BloodType {
   O = "O",
 }
 
-export function SelectBlood(field: ControllerRenderProps<CampaignSchema>) {
+export function SelectBlood(
+  field: ControllerRenderProps<CampaignSchema | FamilySchema>
+) {
   return (
     <Select onValueChange={field.onChange}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Tipo de Sangue" />
+        <SelectValue placeholder="Tipos de Sangue" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Tipos de Sangue</SelectLabel>
           {Object.values(BloodType).map((type) => (
             <SelectItem key={type} value={type}>
               {type}
