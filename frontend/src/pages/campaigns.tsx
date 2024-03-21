@@ -1,8 +1,8 @@
-import { DatePicker } from "@/components/date-picker";
 import { Map } from "@/components/map";
 import { NavBar } from "@/components/navbar";
 import { SelectBlood } from "@/components/select-blood";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -18,11 +18,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CirclePlus } from "lucide-react";
+import { addDays, format } from "date-fns";
+import { CalendarIcon, CirclePlus } from "lucide-react";
 import { useState } from "react";
+import { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
 export interface Campaign {
   ID: string;
   Nome: string;
@@ -44,11 +53,7 @@ const campaignSchema = z.object({
   DataInicio: z.date(),
   DataFim: z.date().optional(),
   Descricao: z.string(),
-  coordenadas: z.object({
-    latitude: z.number(),
-    longigute: z.number(),
-  }),
-  TiposSanguineoNecessario: z.array(z.string()),
+  TiposSanguineoNecessario: z.string(),
   Local: z.string(),
 });
 
@@ -62,6 +67,10 @@ export function Campaigns() {
   const [selectedCampaignID, setSelectedCampaignID] = useState<string | null>(
     null
   );
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 20),
+  });
 
   const campanhas: Campaign[] = [
     {
@@ -192,14 +201,52 @@ export function Campaigns() {
                         <FormItem>
                           <FormLabel>Data</FormLabel>
                           <FormControl>
-                            <DatePicker {...field} />
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  id="date"
+                                  variant={"outline"}
+                                  className={cn(
+                                    !date && "text-muted-foreground"
+                                  )}
+                                >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {date?.from ? (
+                                    date.to ? (
+                                      <>
+                                        {format(date.from, "LLL dd, y")} -{" "}
+                                        {format(date.to, "LLL dd, y")}
+                                      </>
+                                    ) : (
+                                      format(date.from, "LLL dd, y")
+                                    )
+                                  ) : (
+                                    <span>Selecione uma data</span>
+                                  )}
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent
+                                className="w-auto p-0"
+                                align="start"
+                              >
+                                <Calendar
+                                  initialFocus
+                                  mode="range"
+                                  defaultMonth={date?.from}
+                                  selected={date}
+                                  onDayClick={field.onChange}
+                                  onSelect={setDate}
+                                  numberOfMonths={2}
+                                />
+                              </PopoverContent>
+                            </Popover>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
                     <DialogFooter>
-                      <Button type="submit">Submit</Button>
+                      <Button type="submit">Criar</Button>
                     </DialogFooter>
                   </form>
                 </Form>
