@@ -72,7 +72,7 @@ export function Home() {
                 </div>
                 <div className="flex-grow">
                   <p className="leading-relaxed text-base">
-                    Very good product, I recommend it to everyone. It's very
+                    Very good product, I recommend it to everyone. It's very good
                   </p>
                   <a className="mt-3 text-red-500 inline-flex items-center">
                     Learn More
