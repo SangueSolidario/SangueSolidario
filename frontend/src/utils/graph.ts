@@ -1,5 +1,5 @@
 import { msalInstance } from "@/main";
-import { loginRequest, graphConfig } from "../authConfig";
+import { loginRequest, graphConfig } from "../auth/authConfig";
 
 export async function callMsGraph() {
   const account = msalInstance.getActiveAccount();
