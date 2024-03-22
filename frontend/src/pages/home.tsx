@@ -11,6 +11,9 @@ import Goncalo from "@/assets/goncalo.jpg";
 import Joao from "@/assets/joao.jpg";
 import Medic from "@/assets/medic.svg";
 import Tiago from "@/assets/tiago.jpg";
+import salvar from '@/assets/salvarVidas.png';
+import paz from '@/assets/pazEspirito.png';
+import help from '@/assets/help.png';
 
 import { NavBar } from "../components/navbar";
 
@@ -136,17 +139,15 @@ export function Home() {
           <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <Activity />
+                <img src={salvar} alt="Salvar vidas" className="w-full h-full" />
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  Raspberry PI
+                  Vem salvar vidas connosco!
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Enhance pedestrian safety with Raspberry Pi. Detect crosswalks
-                  using advanced algorithms, integrating seamlessly into IoT
-                  solutions for real-time monitoring and urban mobility
-                  improvements.
+                  A doação de sangue é um ato de solidariedade que pode salvar vidas em situações de emergência e melhorar a qualidade de vida de muitas pessoas.
+                  Através da doação de sangue, é possível ajudar pessoas que necessitam como vítimas de acidentes, pacientes com doenças graves, pessoas submetidas a cirurgias e recém-nascidos.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
                   Learn More
@@ -156,16 +157,14 @@ export function Home() {
             </div>
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <Video />
+                <img src={paz} alt="Paz de espírito" className="w-full h-full" />
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  160º Wide Angle Camera
+                  Encontra a tua paz de espírito!
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Experience enhanced perspectives with our 160º Wide Angle
-                  Camera. Capture stunning vistas and dynamic scenes
-                  effortlessly for unparalleled visual impact.
+                  Os nossos doadores comprovam que após a doação de sangue, sentem-se mais felizes e com uma sensação de bem-estar interior e conexão com os outros.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
                   Learn More
@@ -175,16 +174,15 @@ export function Home() {
             </div>
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <UserRound />
+                <img src={help} alt="Ajuda" className="w-full h-full" />
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  GPS Module
+                  Ajuda a comunidade enquanto te ajudas a ti mesmo!
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Seamlessly integrate into systems for accurate geolocation,
-                  enhancing safety measures by facilitating prompt repairs and
-                  maintenance.
+                  Estudos comprovam que a doação de sangue pode ajudar a reduzir o risco de doenças cardíacas, 
+                  para além disso promove a produção de células sanguíneas bem como a redução do risco de cancro.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
                   Learn More
