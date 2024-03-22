@@ -1,9 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home } from "./pages/home";
-import { Campaigns } from "./pages/campaigns";
-import { Perfil } from "./pages/perfil";
 import { IPublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/auth";
+import { Campaigns } from "./pages/campaigns";
+import { Home } from "./pages/home";
+import { Perfil } from "./pages/perfil";
 
 interface AppProps {
   pca: IPublicClientApplication;
@@ -22,9 +23,11 @@ const AppRoutes = () => {
 export function App({ pca }: AppProps) {
   return (
     <MsalProvider instance={pca}>
-      <Router>
-        <AppRoutes />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </AuthProvider>
     </MsalProvider>
   );
 }
