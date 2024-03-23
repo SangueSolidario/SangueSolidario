@@ -1,21 +1,26 @@
-import { CheckCheck, FolderHeart } from "lucide-react";
+import {
+  CalendarSearchIcon,
+  InfoIcon,
+  MapPinnedIcon,
+  SaveIcon,
+} from "lucide-react";
 import { LoadingState } from "@/components/ui/multi-step-loader";
-
-// Assuming these icons are components
-const CheckCheckIcon = CheckCheck;
-const FolderHeartIcon = FolderHeart;
 
 export const loadingStatesCampaigns: LoadingState[] = [
   {
-    text: "Buying a condo",
-    icon: CheckCheckIcon,
+    text: "Verificando elegibilidade",
+    icon: InfoIcon,
   },
   {
-    text: "Travelling in a flight",
-    icon: CheckCheckIcon,
+    text: "Verificando disponibilidade de horário",
+    icon: CalendarSearchIcon,
   },
   {
-    text: "Armazenando dados",
-    icon: FolderHeartIcon,
+    text: "Registando informações",
+    icon: SaveIcon,
+  },
+  {
+    text: "Preparando o local de doação",
+    icon: MapPinnedIcon,
   },
 ];
