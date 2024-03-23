@@ -18,12 +18,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { loadingStatesCampaigns } from "@/utils/multi-step-states";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays, format } from "date-fns";
 import { CalendarIcon, CirclePlus } from "lucide-react";
@@ -60,6 +62,8 @@ const campaignSchema = z.object({
 export type CampaignSchema = z.infer<typeof campaignSchema>;
 
 export function Campaigns() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<CampaignSchema>({
     resolver: zodResolver(campaignSchema),
   });
@@ -121,11 +125,23 @@ export function Campaigns() {
   ];
   const handleSubmit = (data: CampaignSchema) => {
     console.log(data);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000 * loadingStatesCampaigns.length);
   };
 
   return (
     <div className="overflow-y-hidden h-screen">
       <NavBar />
+      {isLoading && (
+        <Loader
+          loadingStates={loadingStatesCampaigns}
+          loading={isLoading}
+          duration={1500}
+          loop={false}
+        />
+      )}
       <div className="container flex flex-1 mx-auto pt-20 md:flex-row space-x-5">
         <aside className="overflow-auto h-[75vh] w-[45vw] px-5">
           <div className="flex flex-wrap items-center justify-center space-y-3 rounded-md h-40 border-dashed border-2 hover:bg-slate-50">
