@@ -68,7 +68,6 @@ export function Campaigns() {
   const handleSubmit = useCallback(async (data: CampaignSchema) => {
     setIsLoading(true);
     try {
-      console.log(data);
       await postCampaign({
         Nome: data.Nome,
         DataInicio: date?.from?.toISOString() ?? new Date().toISOString(),
@@ -77,16 +76,17 @@ export function Campaigns() {
         TiposSanguineoNecessario: [data.TiposSanguineoNecessario],
         Cidade: data.Cidade,
         Coordenadas: {
-          lat: "23",
-          lon: "-7",
+          lat: "39.823891",
+          lon: "-7.491880",
         },
         Status: "Ativa",
       }).then((campaign) => {
         setCampaigns((prev) => [...prev, campaign]);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1500 * loadingStatesCampaigns.length);
       });
-      setIsLoading(false);
     } catch (error) {
-      // Handle error
       setIsLoading(false);
       console.error("Error posting campaign:", error);
     }

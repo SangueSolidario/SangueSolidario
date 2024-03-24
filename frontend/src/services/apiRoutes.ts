@@ -38,8 +38,20 @@ export interface FamiliarMember {
   id: string;
 }
 
+export interface FamiliarMemberForm {
+  email_doador: string;
+  NomeFamiliar: string;
+  Parentesco: string;
+  TipoSanguineo: string;
+}
+
 interface FamiliarMemberData {
   email: string;
+}
+
+export interface GenericDelete {
+  id: string;
+  email_doador: string;
 }
 
 export function getCampaigns(): Promise<Campaign[]> {
@@ -57,4 +69,22 @@ export function getFamiliarMembers(
 ): Promise<FamiliarMember[]> {
   console.log(data);
   return api.post("/familiares", data).then((response) => response.data);
+}
+
+export function postFamiliarMember(
+  familiar: FamiliarMemberForm
+): Promise<FamiliarMember> {
+  return api.post("/familiar", familiar).then((response) => {
+    return response.data;
+  });
+}
+
+export function deleteFamiliarMember(data: GenericDelete): Promise<void> {
+  return api
+    .delete("/familiar", {
+      data: data,
+    })
+    .then((response) => {
+      return response.data;
+    });
 }

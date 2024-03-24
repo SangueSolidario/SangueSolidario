@@ -19,9 +19,10 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { SelectBlood } from "./select-blood";
+import { postFamiliarMember } from "@/services/apiRoutes";
+import { useAuth } from "@/contexts/auth";
 
 const familySchema = z.object({
-  ID: z.string(),
   NomeFamiliar: z.string(),
   TipoSanguineo: z.string(),
   Parentesco: z.string(),
@@ -30,11 +31,20 @@ const familySchema = z.object({
 export type FamilySchema = z.infer<typeof familySchema>;
 
 export function NewfamilyMember() {
+  const { user } = useAuth();
   const form = useForm<FamilySchema>({
     resolver: zodResolver(familySchema),
   });
   const handleSubmit = (data: FamilySchema) => {
-    console.log(data);
+    if (user)
+      postFamiliarMember({
+        email_doador: user.mail,
+        NomeFamiliar: data.NomeFamiliar,
+        Parentesco: data.Parentesco,
+        TipoSanguineo: data.TipoSanguineo,
+      }).then(() => {
+        console.log("Familiar adicionado");
+      });
   };
   return (
     <Dialog>
@@ -50,7 +60,7 @@ export function NewfamilyMember() {
               name="NomeFamiliar"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome Campanha</FormLabel>
+                  <FormLabel>Nome Familiar</FormLabel>
                   <FormControl>
                     <Input placeholder="Nome da Campanha" {...field} />
                   </FormControl>
@@ -63,7 +73,7 @@ export function NewfamilyMember() {
               name="TipoSanguineo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sangue</FormLabel>
+                  <FormLabel>Tipo Sangue</FormLabel>
                   <FormControl>
                     <SelectBlood {...field} />
                   </FormControl>
@@ -78,7 +88,7 @@ export function NewfamilyMember() {
                 <FormItem>
                   <FormLabel>Parentesco</FormLabel>
                   <FormControl>
-                    <SelectBlood {...field} />
+                    <Input placeholder="Grau de Parentesco" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
