@@ -318,7 +318,7 @@ export function Home() {
         </div>
       </footer>
       <a
-        href="https://github.com/GoncalojmRosa/SangueSolidario"
+        href="https://github.com/SangueSolidario/SangueSolidario"
         className="rounded-full w-12 h-12 bg-gray-100 fixed bottom-0 right-0 flex items-center justify-center text-gray-800 mr-8 mb-8 shadow-sm border-gray-300 border"
         target="_blank"
       >
