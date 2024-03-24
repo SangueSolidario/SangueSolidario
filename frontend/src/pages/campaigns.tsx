@@ -25,12 +25,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Campaign } from "@/services/apiRoutes";
+import { Campaign, getCampaigns, postCampaign } from "@/services/apiRoutes";
 import { loadingStatesCampaigns } from "@/utils/multi-step-states";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDays, format, formatDistance } from "date-fns";
+import { addDays, format, formatDistance, set } from "date-fns";
 import { CalendarIcon, CirclePlus } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -63,76 +63,44 @@ export function Campaigns() {
     to: addDays(new Date(), 20),
   });
 
-  const campanhas: Campaign[] = [
-    {
-      ID: "1",
-      Nome: "Campanha 1",
-      DataInicio: "2022-01-01",
-      DataFim: "2022-01-31",
-      Imagem: "Url para Blob Storage 1",
-      Descricao: "Descrição da Campanha 1",
-      TiposSanguineoNecessario: ["A+", "B+"],
-      Coordenadas: { lat: "39.8239", lon: "-7.49189" },
-      Status: "Ativa",
-      Cidade: "Castelo Branco",
-    },
-    {
-      ID: "2",
-      Nome: "Campanha 2",
-      DataInicio: "2022-02-01",
-      DataFim: "2022-02-28",
-      Imagem: "Url para Blob Storage 2",
-      Descricao: "Descrição da Campanha 2",
-      TiposSanguineoNecessario: ["A+", "B+"],
-      Coordenadas: { lat: "39.8239", lon: "-7.29189" },
-      Status: "Ativa",
-      Cidade: "Castelo Branco",
-    },
-    {
-      ID: "3",
-      Nome: "Campanha 3",
-      DataInicio: "2022-03-01",
-      DataFim: "2022-03-31",
-      Imagem: "Url para Blob Storage 3",
-      Descricao: "Descrição da Campanha 3",
-      TiposSanguineoNecessario: ["A+", "B+"],
-      Coordenadas: { lat: "39.8239", lon: "-7.19189" },
-      Status: "Ativa",
-      Cidade: "Castelo Branco",
-    },
-    {
-      ID: "4",
-      Nome: "Campanha 4",
-      DataInicio: "2022-04-01",
-      DataFim: "2022-04-30",
-      Imagem: "Url para Blob Storage 4",
-      Descricao: "Descrição da Campanha 4",
-      TiposSanguineoNecessario: ["A+", "B+"],
-      Coordenadas: { lat: "39.8239", lon: "-7.39189" },
-      Status: "Ativa",
-      Cidade: "Castelo Branco",
-    },
-    {
-      ID: "5",
-      Nome: "Campanha 5",
-      DataInicio: "2022-05-01",
-      DataFim: "2022-05-31",
-      Imagem: "Url para Blob Storage 5",
-      Descricao: "Descrição da Campanha 5",
-      TiposSanguineoNecessario: ["A+", "B+"],
-      Coordenadas: { lat: "39.8239", lon: "-7.09189" },
-      Status: "Ativa",
-      Cidade: "Castelo Branco",
-    },
-  ];
-  const handleSubmit = (data: CampaignSchema) => {
-    console.log(data);
-    console.log(date);
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+
+  const handleSubmit = useCallback(async (data: CampaignSchema) => {
     setIsLoading(true);
-    setTimeout(() => {
+    try {
+      console.log(data);
+      await postCampaign({
+        Nome: data.Nome,
+        DataInicio: date?.from?.toISOString() ?? new Date().toISOString(),
+        DataFim: date?.to?.toISOString() ?? new Date().toISOString(),
+        Descricao: data.Descricao,
+        TiposSanguineoNecessario: [data.TiposSanguineoNecessario],
+        Cidade: data.Cidade,
+        Coordenadas: {
+          lat: "23",
+          lon: "-7",
+        },
+        Status: "Ativa",
+      }).then((campaign) => {
+        setCampaigns((prev) => [...prev, campaign]);
+      });
       setIsLoading(false);
-    }, 2000 * loadingStatesCampaigns.length);
-  };
+    } catch (error) {
+      // Handle error
+      setIsLoading(false);
+      console.error("Error posting campaign:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    getCampaigns()
+      .then((data) => {
+        setCampaigns(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching campaigns:", error);
+      });
+  }, []);
 
   return (
     <div className="overflow-y-hidden h-screen">
@@ -273,30 +241,33 @@ export function Campaigns() {
             </Dialog>
           </div>
 
-          {campanhas.map((campanha) => (
-            <div className="mt-5 p-5 space-y-3 border rounded-md h-60 hover:shadow-lg transition duration-300 transform hover:scale-105 group/item">
+          {campaigns.map((campaign) => (
+            <div
+              key={campaign.ID}
+              className="mt-5 p-5 space-y-3 border rounded-md h-60 hover:shadow-lg transition duration-300 transform hover:scale-105 group/item"
+            >
               <div className="flex items-center justify-between">
-                <p className="font-bold text-lg">{campanha.Nome}</p>
+                <p className="font-bold text-lg">{campaign.Nome}</p>
                 <span className="text-green-500 font-bold">
-                  {campanha.Status}
+                  {campaign.Status}
                 </span>
               </div>
               <div className="space-y-2">
                 <span>Tipos Sanguineos:</span>
                 <div className="">
-                  {campanha.TiposSanguineoNecessario.map((tipo) => (
+                  {campaign.TiposSanguineoNecessario.map((tipo) => (
                     <span className="inline-block pl-1">{tipo}</span>
                   ))}
                 </div>
-                <p>Isto é uma campanha de testes por favor respeite</p>
+                <p>Isto é uma campaign de testes por favor respeite</p>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-slate-700">
                   Termina em{" "}
                   <span className="font-bold">
                     {formatDistance(
-                      new Date(campanha.DataInicio),
-                      new Date(campanha.DataFim),
+                      new Date(campaign.DataInicio),
+                      new Date(campaign.DataFim),
                       {
                         locale: ptBR,
                       }
@@ -306,7 +277,7 @@ export function Campaigns() {
                 </p>
                 <Button
                   className="bg-red-400 font-bold invisible group-hover/item:visible transition-all duration-300 ease-linear hover:bg-red-100 hover:text-black"
-                  onClick={() => setSelectedCampaignID(campanha.ID)}
+                  onClick={() => setSelectedCampaignID(campaign.ID)}
                 >
                   Participar
                 </Button>
@@ -315,7 +286,7 @@ export function Campaigns() {
           ))}
         </aside>
         <div className="w-screen h-screen z-0">
-          <Map selectedCampaignID={selectedCampaignID} campaigns={campanhas} />
+          <Map selectedCampaignID={selectedCampaignID} campaigns={campaigns} />
         </div>
       </div>
     </div>

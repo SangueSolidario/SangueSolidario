@@ -2,28 +2,19 @@ import { FamilyMemberCard } from "@/components/family-member-card";
 import { NavBar } from "@/components/navbar";
 import { NewfamilyMember } from "@/components/new-family-member";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuth } from "@/contexts/auth";
+import { FamiliarMember, getFamiliarMembers } from "@/services/apiRoutes";
+import { useEffect, useState } from "react";
 
 export function Perfil() {
-  const familiares = [
-    {
-      ID: "1",
-      NomeFamiliar: "João",
-      TipoSanguineo: "A+",
-      Parentesco: "Irmão",
-    },
-    {
-      ID: "1",
-      NomeFamiliar: "Gonçalo",
-      TipoSanguineo: "A+",
-      Parentesco: "Pai",
-    },
-    {
-      ID: "1",
-      NomeFamiliar: "Tiago",
-      TipoSanguineo: "A+",
-      Parentesco: "Irmão",
-    },
-  ];
+  const { user } = useAuth();
+  const [familiares, setFamiliares] = useState<FamiliarMember[]>([]);
+
+  useEffect(() => {
+    getFamiliarMembers({ email: "maria@gmail.com" }).then((data) =>
+      setFamiliares(data)
+    );
+  }, []);
 
   return (
     <div>
@@ -46,7 +37,7 @@ export function Perfil() {
             <NewfamilyMember />
 
             {familiares.map((familiar) => {
-              return <FamilyMemberCard key={familiar.ID} familiar={familiar} />;
+              return <FamilyMemberCard key={familiar.id} familiar={familiar} />;
             })}
           </TabsContent>
         </Tabs>

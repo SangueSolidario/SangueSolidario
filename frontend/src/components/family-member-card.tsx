@@ -1,15 +1,7 @@
+import { FamiliarMember } from "@/services/apiRoutes";
 import { User2, X } from "lucide-react";
 
-interface FamiliarMemberCardProps {
-  familiar: {
-    ID: string;
-    NomeFamiliar: string;
-    TipoSanguineo: string;
-    Parentesco: string;
-  };
-}
-
-export function FamilyMemberCard({ familiar }: FamiliarMemberCardProps) {
+export function FamilyMemberCard({ familiar }: { familiar: FamiliarMember }) {
   return (
     <div className="flex flex-col justify-center items-center border border-gray-300 rounded-md p-4 bg-white shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
       <User2 className="text-gray-400" size={60} />

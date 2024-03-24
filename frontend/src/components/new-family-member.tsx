@@ -24,7 +24,7 @@ const familySchema = z.object({
   ID: z.string(),
   NomeFamiliar: z.string(),
   TipoSanguineo: z.string(),
-  // Parentesco: z.string(),
+  Parentesco: z.string(),
 });
 
 export type FamilySchema = z.infer<typeof familySchema>;
@@ -64,6 +64,19 @@ export function NewfamilyMember() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sangue</FormLabel>
+                  <FormControl>
+                    <SelectBlood {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="Parentesco"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Parentesco</FormLabel>
                   <FormControl>
                     <SelectBlood {...field} />
                   </FormControl>
