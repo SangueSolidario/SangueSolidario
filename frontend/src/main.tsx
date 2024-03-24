@@ -9,6 +9,8 @@ import {
   PublicClientApplication,
 } from "@azure/msal-browser";
 import { msalConfig } from "./contexts/authConfig.ts";
+import { AuthProvider } from "./contexts/auth.tsx";
+import { MsalProvider } from "@azure/msal-react";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -32,7 +34,11 @@ msalInstance.initialize().then(() => {
   );
   root.render(
     <React.StrictMode>
-      <App pca={msalInstance} />
+      <MsalProvider instance={msalInstance}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </MsalProvider>
     </React.StrictMode>
   );
 });
