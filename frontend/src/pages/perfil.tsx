@@ -6,21 +6,21 @@ export function Perfil() {
   const familiares = [
     {
       ID: "1",
-      ID_Doador: "Familiar 1",
       NomeFamiliar: "João",
       TipoSanguineo: "A+",
+      Parentesco: "Irmão",
     },
     {
       ID: "1",
-      ID_Doador: "Familiar 1",
       NomeFamiliar: "Gonçalo",
       TipoSanguineo: "A+",
+      Parentesco: "Pai",
     },
     {
       ID: "1",
-      ID_Doador: "Familiar 1",
       NomeFamiliar: "Tiago",
       TipoSanguineo: "A+",
+      Parentesco: "Irmão",
     },
   ];
 
