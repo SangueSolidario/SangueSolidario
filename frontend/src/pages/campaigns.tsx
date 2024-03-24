@@ -25,34 +25,21 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { Campaign } from "@/services/apiRoutes";
 import { loadingStatesCampaigns } from "@/utils/multi-step-states";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDays, format } from "date-fns";
+import { addDays, format, formatDistance } from "date-fns";
 import { CalendarIcon, CirclePlus } from "lucide-react";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export interface Campaign {
-  ID: string;
-  Nome: string;
-  DataInicio: string;
-  DataFim: string;
-  Imagem: string;
-  Descricao: string;
-  Coordenadas: {
-    lat: string;
-    lon: string;
-  };
-  TiposSanguineoNecessario: string[];
-  Cidade: string;
-  Status: string;
-}
+import { ptBR } from "date-fns/locale";
 
 const campaignSchema = z.object({
   Nome: z.string(),
-  DataInicio: z.date(),
+  DataInicio: z.coerce.date(),
   DataFim: z.date().optional(),
   Descricao: z.string(),
   TiposSanguineoNecessario: z.string(),
@@ -140,6 +127,7 @@ export function Campaigns() {
   ];
   const handleSubmit = (data: CampaignSchema) => {
     console.log(data);
+    console.log(date);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -304,7 +292,17 @@ export function Campaigns() {
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-slate-700">
-                  Termina em <span className="font-bold">25 dias!</span>
+                  Termina em{" "}
+                  <span className="font-bold">
+                    {formatDistance(
+                      new Date(campanha.DataInicio),
+                      new Date(campanha.DataFim),
+                      {
+                        locale: ptBR,
+                      }
+                    )}
+                    !
+                  </span>
                 </p>
                 <Button
                   className="bg-red-400 font-bold invisible group-hover/item:visible transition-all duration-300 ease-linear hover:bg-red-100 hover:text-black"
