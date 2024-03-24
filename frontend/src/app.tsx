@@ -10,7 +10,7 @@ interface AppProps {
   pca: IPublicClientApplication;
 }
 
-const AppRoutes = () => {
+const SignInRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -20,12 +20,22 @@ const AppRoutes = () => {
   );
 };
 
+// const SignOutRoutes = () => {
+//   return (
+//     <Routes>
+//       <Route path="/" element={<Home />} />
+//     </Routes>
+//   );
+// };
+
 export function App({ pca }: AppProps) {
+  // const { signed } = useAuth();
   return (
     <MsalProvider instance={pca}>
       <AuthProvider>
         <Router>
-          <AppRoutes />
+          {/* {signed ? <SignInRoutes /> : <SignOutRoutes />} */}
+          <SignInRoutes />
         </Router>
       </AuthProvider>
     </MsalProvider>

@@ -16,8 +16,8 @@ export function Map({ selectedCampaignID, campaigns }: MapProps) {
     );
     if (selectedCampaign) {
       setCenter([
-        selectedCampaign.coordenadas.latitude,
-        selectedCampaign.coordenadas.longigute,
+        parseFloat(selectedCampaign.Coordenadas.lat),
+        parseFloat(selectedCampaign.Coordenadas.lon),
       ]);
     }
   }, [selectedCampaignID, campaigns]);
@@ -37,8 +37,8 @@ export function Map({ selectedCampaignID, campaigns }: MapProps) {
         <Marker
           key={campanha.ID}
           position={[
-            campanha.coordenadas.latitude,
-            campanha.coordenadas.longigute,
+            parseFloat(campanha.Coordenadas.lat),
+            parseFloat(campanha.Coordenadas.lon),
           ]}
         >
           <Popup>{campanha.Descricao}</Popup>

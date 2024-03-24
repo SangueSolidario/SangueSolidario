@@ -35,10 +35,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<GraphData | null>(null);
 
   useEffect(() => {
-    console.log("Login");
     if (!graphData && inProgress === InteractionStatus.None) {
       callMsGraph()
-        .then((response) => setGraphData(response))
+        .then((response) => {
+          setGraphData(response);
+          setUser(response);
+        })
         .catch((e) => {
           if (e instanceof InteractionRequiredAuthError) {
             instance.acquireTokenRedirect({
@@ -49,8 +51,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         });
     }
-    console.log("GraphData", graphData);
-    setUser(graphData);
   }, [inProgress, graphData, instance]);
 
   return (

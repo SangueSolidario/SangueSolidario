@@ -41,12 +41,12 @@ export interface Campaign {
   DataFim: string;
   Imagem: string;
   Descricao: string;
-  coordenadas: {
-    latitude: number;
-    longigute: number;
+  Coordenadas: {
+    lat: string;
+    lon: string;
   };
   TiposSanguineoNecessario: string[];
-  Local: string;
+  Cidade: string;
   Status: string;
 }
 
@@ -56,7 +56,7 @@ const campaignSchema = z.object({
   DataFim: z.date().optional(),
   Descricao: z.string(),
   TiposSanguineoNecessario: z.string(),
-  Local: z.string(),
+  Cidade: z.string(),
 });
 
 export type CampaignSchema = z.infer<typeof campaignSchema>;
@@ -79,48 +79,63 @@ export function Campaigns() {
   const campanhas: Campaign[] = [
     {
       ID: "1",
-      Nome: "Campanha de Teste",
-      DataInicio: "2021-12-01",
-      DataFim: "2021-12-25",
-      Imagem: "https://via.placeholder.com/150",
-      Descricao: "Isto é uma campanha de testes por favor respeite",
-      coordenadas: {
-        latitude: 39.8239,
-        longigute: -7.49189,
-      },
-      TiposSanguineoNecessario: ["A+", "B-", "O+"],
-      Local: "Covilhã",
+      Nome: "Campanha 1",
+      DataInicio: "2022-01-01",
+      DataFim: "2022-01-31",
+      Imagem: "Url para Blob Storage 1",
+      Descricao: "Descrição da Campanha 1",
+      TiposSanguineoNecessario: ["A+", "B+"],
+      Coordenadas: { lat: "39.8239", lon: "-7.49189" },
       Status: "Ativa",
+      Cidade: "Castelo Branco",
     },
     {
       ID: "2",
-      Nome: "Campanha de Teste 2",
-      DataInicio: "2021-12-01",
-      DataFim: "2021-12-25",
-      Imagem: "https://via.placeholder.com/150",
-      Descricao: "Isto é uma campanha de testes por favor respeite",
-      coordenadas: {
-        latitude: 38.8239,
-        longigute: -7.49189,
-      },
-      TiposSanguineoNecessario: ["A+", "B-", "O+"],
-      Local: "Covilhã",
+      Nome: "Campanha 2",
+      DataInicio: "2022-02-01",
+      DataFim: "2022-02-28",
+      Imagem: "Url para Blob Storage 2",
+      Descricao: "Descrição da Campanha 2",
+      TiposSanguineoNecessario: ["A+", "B+"],
+      Coordenadas: { lat: "39.8239", lon: "-7.29189" },
       Status: "Ativa",
+      Cidade: "Castelo Branco",
     },
     {
       ID: "3",
-      Nome: "Campanha de Teste 3",
-      DataInicio: "2021-12-01",
-      DataFim: "2021-12-25",
-      Imagem: "https://via.placeholder.com/150",
-      Descricao: "Isto é uma campanha de testes por favor respeite",
-      coordenadas: {
-        latitude: 37.8239,
-        longigute: -7.49189,
-      },
-      TiposSanguineoNecessario: ["A+", "B-", "O+"],
-      Local: "Covilhã",
+      Nome: "Campanha 3",
+      DataInicio: "2022-03-01",
+      DataFim: "2022-03-31",
+      Imagem: "Url para Blob Storage 3",
+      Descricao: "Descrição da Campanha 3",
+      TiposSanguineoNecessario: ["A+", "B+"],
+      Coordenadas: { lat: "39.8239", lon: "-7.19189" },
       Status: "Ativa",
+      Cidade: "Castelo Branco",
+    },
+    {
+      ID: "4",
+      Nome: "Campanha 4",
+      DataInicio: "2022-04-01",
+      DataFim: "2022-04-30",
+      Imagem: "Url para Blob Storage 4",
+      Descricao: "Descrição da Campanha 4",
+      TiposSanguineoNecessario: ["A+", "B+"],
+      Coordenadas: { lat: "39.8239", lon: "-7.39189" },
+      Status: "Ativa",
+      Cidade: "Castelo Branco",
+    },
+    {
+      ID: "5",
+      Nome: "Campanha 5",
+      DataInicio: "2022-05-01",
+      DataFim: "2022-05-31",
+      Imagem: "Url para Blob Storage 5",
+      Descricao: "Descrição da Campanha 5",
+      TiposSanguineoNecessario: ["A+", "B+"],
+      Coordenadas: { lat: "39.8239", lon: "-7.09189" },
+      Status: "Ativa",
+      Cidade: "Castelo Branco",
     },
   ];
   const handleSubmit = (data: CampaignSchema) => {
@@ -186,7 +201,7 @@ export function Campaigns() {
                     />
                     <FormField
                       control={form.control}
-                      name="Local"
+                      name="Cidade"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Local Campanha</FormLabel>
