@@ -1,19 +1,12 @@
-import {
-  Activity,
-  ArrowRight,
-  Github,
-  Quote,
-  UserRound,
-  Video,
-} from "lucide-react";
+import { ArrowRight, Github, Quote, UserRound } from "lucide-react";
 import Pacient from "@/assets/pacient.svg";
 import Goncalo from "@/assets/goncalo.jpg";
 import Joao from "@/assets/joao.jpg";
 import Medic from "@/assets/medic.svg";
 import Tiago from "@/assets/tiago.jpg";
-import salvar from '@/assets/salvarVidas.png';
-import paz from '@/assets/pazEspirito.png';
-import help from '@/assets/help.png';
+import salvar from "@/assets/salvarVidas.png";
+import paz from "@/assets/pazEspirito.png";
+import help from "@/assets/help.png";
 
 import { NavBar } from "../components/navbar";
 
@@ -75,7 +68,8 @@ export function Home() {
                 </div>
                 <div className="flex-grow">
                   <p className="leading-relaxed text-base">
-                    Very good product, I recommend it to everyone. It's very good
+                    Very good product, I recommend it to everyone. It's very
+                    good
                   </p>
                   <a className="mt-3 text-red-500 inline-flex items-center">
                     Learn More
@@ -139,15 +133,23 @@ export function Home() {
           <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <img src={salvar} alt="Salvar vidas" className="w-full h-full" />
+                <img
+                  src={salvar}
+                  alt="Salvar vidas"
+                  className="w-full h-full"
+                />
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
                   Vem salvar vidas connosco!
                 </h2>
                 <p className="leading-relaxed text-base">
-                  A doação de sangue é um ato de solidariedade que pode salvar vidas em situações de emergência e melhorar a qualidade de vida de muitas pessoas.
-                  Através da doação de sangue, é possível ajudar pessoas que necessitam como vítimas de acidentes, pacientes com doenças graves, pessoas submetidas a cirurgias e recém-nascidos.
+                  A doação de sangue é um ato de solidariedade que pode salvar
+                  vidas em situações de emergência e melhorar a qualidade de
+                  vida de muitas pessoas. Através da doação de sangue, é
+                  possível ajudar pessoas que necessitam como vítimas de
+                  acidentes, pacientes com doenças graves, pessoas submetidas a
+                  cirurgias e recém-nascidos.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
                   Learn More
@@ -157,14 +159,20 @@ export function Home() {
             </div>
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-red-100 text-red-500 mb-5">
-                <img src={paz} alt="Paz de espírito" className="w-full h-full" />
+                <img
+                  src={paz}
+                  alt="Paz de espírito"
+                  className="w-full h-full"
+                />
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
                   Encontra a tua paz de espírito!
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Os nossos doadores comprovam que após a doação de sangue, sentem-se mais felizes e com uma sensação de bem-estar interior e conexão com os outros.
+                  Os nossos doadores comprovam que após a doação de sangue,
+                  sentem-se mais felizes e com uma sensação de bem-estar
+                  interior e conexão com os outros.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
                   Learn More
@@ -181,8 +189,10 @@ export function Home() {
                   Ajuda a comunidade enquanto te ajudas a ti mesmo!
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Estudos comprovam que a doação de sangue pode ajudar a reduzir o risco de doenças cardíacas, 
-                  para além disso promove a produção de células sanguíneas bem como a redução do risco de cancro.
+                  Estudos comprovam que a doação de sangue pode ajudar a reduzir
+                  o risco de doenças cardíacas, para além disso promove a
+                  produção de células sanguíneas bem como a redução do risco de
+                  cancro.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
                   Learn More

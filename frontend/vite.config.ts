@@ -11,6 +11,10 @@ export default defineConfig({
   //     usePolling: true,
   //   },
   // },
+  // preview: {
+  //   port: 8080,
+  //   strictPort: true,
+  // },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
