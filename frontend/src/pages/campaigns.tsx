@@ -36,6 +36,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { ptBR } from "date-fns/locale";
+import { toast } from "@/components/ui/use-toast";
 
 const campaignSchema = z.object({
   Nome: z.string(),
@@ -97,8 +98,11 @@ export function Campaigns() {
       .then((data) => {
         setCampaigns(data);
       })
-      .catch((error) => {
-        console.error("Error fetching campaigns:", error);
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Estamos com problemas em carregar as campanhas.",
+        });
       });
   }, []);
 
@@ -284,6 +288,11 @@ export function Campaigns() {
               </div>
             </div>
           ))}
+          {campaigns.length === 0 && (
+            <div className="flex items-center justify-center h-60">
+              <p className="text-gray-500">Nenhuma campanha encontrada</p>
+            </div>
+          )}
         </aside>
         <div className="w-screen h-screen z-0">
           <Map selectedCampaignID={selectedCampaignID} campaigns={campaigns} />

@@ -11,6 +11,7 @@ import {
 import { msalConfig } from "./contexts/authConfig.ts";
 import { AuthProvider } from "./contexts/auth.tsx";
 import { MsalProvider } from "@azure/msal-react";
+import { Toaster } from "./components/ui/toaster.tsx";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -36,6 +37,7 @@ msalInstance.initialize().then(() => {
       <MsalProvider instance={msalInstance}>
         <AuthProvider>
           <App />
+          <Toaster />
         </AuthProvider>
       </MsalProvider>
     </React.StrictMode>
