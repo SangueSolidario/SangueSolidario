@@ -44,12 +44,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     if (!graphData && inProgress === InteractionStatus.None) {
       callMsGraph()
         .then((response) => {
-          console.log("Graph response:", response);
           setGraphData(response);
           setUser(response);
         })
         .catch((error) => {
-          console.error("Error fetching data:", error);
           if (error instanceof InteractionRequiredAuthError) {
             instance.acquireTokenRedirect({
               ...loginRequest,

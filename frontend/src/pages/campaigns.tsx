@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 import { Campaign, getCampaigns, postCampaign } from "@/services/apiRoutes";
 import { loadingStatesCampaigns } from "@/utils/multi-step-states";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDays, format, formatDistance, set } from "date-fns";
+import { addDays, format, formatDistance } from "date-fns";
 import { CalendarIcon, CirclePlus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";

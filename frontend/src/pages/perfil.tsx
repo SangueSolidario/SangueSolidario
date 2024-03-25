@@ -3,12 +3,12 @@ import { NavBar } from "@/components/navbar";
 import { NewfamilyMember } from "@/components/new-family-member";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/components/ui/use-toast";
-import { useAuth } from "@/contexts/auth";
+// import { useAuth } from "@/contexts/auth";
 import { FamiliarMember, getFamiliarMembers } from "@/services/apiRoutes";
 import { useEffect, useState } from "react";
 
 export function Perfil() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [familiares, setFamiliares] = useState<FamiliarMember[]>([]);
 
   useEffect(() => {

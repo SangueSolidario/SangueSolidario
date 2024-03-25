@@ -1,7 +1,7 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Campaign } from "@/pages/campaigns";
 import { useEffect, useState } from "react";
+import { Campaign } from "@/services/apiRoutes";
 interface MapProps {
   selectedCampaignID: string | null;
   campaigns: Campaign[];
