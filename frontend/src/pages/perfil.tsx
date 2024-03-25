@@ -2,6 +2,7 @@ import { FamilyMemberCard } from "@/components/family-member-card";
 import { NavBar } from "@/components/navbar";
 import { NewfamilyMember } from "@/components/new-family-member";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/contexts/auth";
 import { FamiliarMember, getFamiliarMembers } from "@/services/apiRoutes";
 import { useEffect, useState } from "react";
@@ -11,9 +12,15 @@ export function Perfil() {
   const [familiares, setFamiliares] = useState<FamiliarMember[]>([]);
 
   useEffect(() => {
-    getFamiliarMembers({ email: "maria@gmail.com" }).then((data) =>
-      setFamiliares(data)
-    );
+    getFamiliarMembers({ email: "maria@gmail.com" })
+      .then((data) => setFamiliares(data))
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Erro ao encontrar familiares",
+          description: "Tente novamente mais tarde.",
+        });
+      });
   }, []);
 
   return (

@@ -44,6 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     if (!graphData && inProgress === InteractionStatus.None) {
       callMsGraph()
         .then((response) => {
+          console.log("Graph response:", response);
           setGraphData(response);
           setUser(response);
         })
