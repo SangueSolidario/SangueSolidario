@@ -89,7 +89,6 @@ export function Campaigns() {
       });
     } catch (error) {
       setIsLoading(false);
-      console.error("Error posting campaign:", error);
     }
   }, []);
 

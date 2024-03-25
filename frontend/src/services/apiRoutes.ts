@@ -67,7 +67,6 @@ export function postCampaign(campaign: CampaignForm): Promise<Campaign> {
 export function getFamiliarMembers(
   data: FamiliarMemberData
 ): Promise<FamiliarMember[]> {
-  console.log(data);
   return api.post("/familiares", data).then((response) => response.data);
 }
 
