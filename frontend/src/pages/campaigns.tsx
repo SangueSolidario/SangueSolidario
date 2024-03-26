@@ -35,8 +35,8 @@ import { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { ptBR } from "date-fns/locale";
 import { toast } from "@/components/ui/use-toast";
+import { ptBR } from "date-fns/locale";
 
 const campaignSchema = z.object({
   Nome: z.string(),
