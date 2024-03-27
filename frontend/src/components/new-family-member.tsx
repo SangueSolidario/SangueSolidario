@@ -21,6 +21,9 @@ import { Button } from "./ui/button";
 import { SelectBlood } from "./select-blood";
 import { postFamiliarMember } from "@/services/apiRoutes";
 import { useAuth } from "@/contexts/auth";
+import { useState } from "react";
+import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
+import { loadingStatesPerfil } from "@/utils/multi-step-states";
 
 const familySchema = z.object({
   NomeFamiliar: z.string(),
@@ -32,6 +35,8 @@ export type FamilySchema = z.infer<typeof familySchema>;
 
 export function NewfamilyMember() {
   const { user } = useAuth();
+  const [showMultiStep, setShowMultiStep] = useState(false);
+
   const form = useForm<FamilySchema>({
     resolver: zodResolver(familySchema),
   });
@@ -43,11 +48,22 @@ export function NewfamilyMember() {
         Parentesco: data.Parentesco,
         TipoSanguineo: data.TipoSanguineo,
       }).then(() => {
-        console.log("Familiar adicionado");
+        setShowMultiStep(true);
+        setTimeout(() => {
+          setShowMultiStep(false);
+        }, 1500 * loadingStatesPerfil.length);
       });
   };
   return (
     <Dialog>
+      {showMultiStep && (
+        <Loader
+          loadingStates={loadingStatesPerfil}
+          loading={showMultiStep}
+          duration={1500}
+          loop={false}
+        />
+      )}
       <DialogTrigger className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md hover:bg-slate-50">
         <PlusCircleIcon className="text-gray-400" size={60} />
         <span className="mt-2 text-sm text-gray-500">Adicionar Familiar</span>

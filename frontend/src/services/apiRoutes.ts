@@ -1,7 +1,7 @@
 import api from "./api";
 
 export interface Campaign {
-  ID: string;
+  id: string;
   Nome: string;
   DataInicio: string;
   DataFim: string;
@@ -49,9 +49,26 @@ interface FamiliarMemberData {
   email: string;
 }
 
+export interface Doador {
+  email: string;
+  Nome: string;
+  TipoSanguineo: string;
+  dataNascimento: Date;
+}
+
+export interface DoadorPost {
+  email: string;
+  Nome: string;
+}
+
 export interface GenericDelete {
   id: string;
   email_doador: string;
+}
+
+export interface ParticipateCampaign {
+  email: string;
+  id: string;
 }
 
 export function getCampaigns(): Promise<Campaign[]> {
@@ -74,6 +91,24 @@ export function postFamiliarMember(
   familiar: FamiliarMemberForm
 ): Promise<FamiliarMember> {
   return api.post("/familiar", familiar).then((response) => {
+    return response.data;
+  });
+}
+
+export function postDoador(data: DoadorPost): Promise<void> {
+  return api.post("/doador", data).then((response) => {
+    return response.data;
+  });
+}
+
+export function postDoadorForm(data: Doador): Promise<void> {
+  return api.post("/doador", data).then((response) => {
+    return response.data;
+  });
+}
+
+export function postParticipar(data: ParticipateCampaign): Promise<void> {
+  return api.post("/doador/campanha", data).then((response) => {
     return response.data;
   });
 }

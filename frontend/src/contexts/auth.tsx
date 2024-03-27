@@ -13,6 +13,7 @@ import React, {
   useState,
 } from "react";
 import { loginRequest } from "@/contexts/authConfig";
+import { postDoador } from "@/services/apiRoutes";
 
 type GraphData = {
   displayName: string;
@@ -57,6 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
           }
         });
     }
+    if (user) postDoador({ email: user.mail, Nome: user.displayName });
   }, [graphData, inProgress, instance]);
 
   return (

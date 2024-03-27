@@ -9,6 +9,7 @@ import {
 import { CampaignSchema } from "@/pages/campaigns";
 import { ControllerRenderProps } from "react-hook-form";
 import { FamilySchema } from "./new-family-member";
+import { PerfilSchema } from "@/pages/perfil";
 
 enum BloodType {
   A = "A",
@@ -18,7 +19,7 @@ enum BloodType {
 }
 
 export function SelectBlood(
-  field: ControllerRenderProps<CampaignSchema | FamilySchema>
+  field: ControllerRenderProps<CampaignSchema | FamilySchema | PerfilSchema>
 ) {
   return (
     <Select onValueChange={field.onChange}>

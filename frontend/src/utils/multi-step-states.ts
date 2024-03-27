@@ -24,3 +24,22 @@ export const loadingStatesCampaigns: LoadingState[] = [
     icon: MapPinnedIcon,
   },
 ];
+
+export const loadingStatesPerfil: LoadingState[] = [
+  {
+    text: "Verificando elegibilidade",
+    icon: InfoIcon,
+  },
+  {
+    text: "Verificando disponibilidade de horário",
+    icon: CalendarSearchIcon,
+  },
+  {
+    text: "Registando informações",
+    icon: SaveIcon,
+  },
+  {
+    text: "Preparando o local de doação",
+    icon: MapPinnedIcon,
+  },
+];

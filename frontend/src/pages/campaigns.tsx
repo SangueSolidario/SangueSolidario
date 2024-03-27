@@ -25,7 +25,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Campaign, getCampaigns, postCampaign } from "@/services/apiRoutes";
+import {
+  Campaign,
+  getCampaigns,
+  postCampaign,
+  postParticipar,
+} from "@/services/apiRoutes";
 import { loadingStatesCampaigns } from "@/utils/multi-step-states";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays, format, formatDistance } from "date-fns";
@@ -37,6 +42,9 @@ import { z } from "zod";
 
 import { toast } from "@/components/ui/use-toast";
 import { ptBR } from "date-fns/locale";
+
+import axios from "axios";
+import { useAuth } from "@/contexts/auth";
 
 const campaignSchema = z.object({
   Nome: z.string(),
@@ -50,7 +58,8 @@ const campaignSchema = z.object({
 export type CampaignSchema = z.infer<typeof campaignSchema>;
 
 export function Campaigns() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuth();
+  const [showMultiStep, setShowMultiStep] = useState(false);
 
   const form = useForm<CampaignSchema>({
     resolver: zodResolver(campaignSchema),
@@ -65,10 +74,16 @@ export function Campaigns() {
   });
 
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-
   const handleSubmit = useCallback(async (data: CampaignSchema) => {
-    setIsLoading(true);
+    setShowMultiStep(true);
     try {
+      const response = await axios.get(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          data.Cidade
+        )}&format=json`
+      );
+      const { lat, lon } = response.data[0];
+
       await postCampaign({
         Nome: data.Nome,
         DataInicio: date?.from?.toISOString() ?? new Date().toISOString(),
@@ -77,20 +92,59 @@ export function Campaigns() {
         TiposSanguineoNecessario: [data.TiposSanguineoNecessario],
         Cidade: data.Cidade,
         Coordenadas: {
-          lat: "39.823891",
-          lon: "-7.491880",
+          lat: lat,
+          lon: lon,
         },
         Status: "Ativa",
       }).then((campaign) => {
         setCampaigns((prev) => [...prev, campaign]);
         setTimeout(() => {
-          setIsLoading(false);
+          setShowMultiStep(false);
         }, 1500 * loadingStatesCampaigns.length);
       });
     } catch (error) {
-      setIsLoading(false);
+      setShowMultiStep(false);
     }
   }, []);
+
+  // const { data, isLoading, status, error } = useQuery({
+  //   queryKey: [""],
+  //   queryFn: getCampaigns,
+  //   retry: 1,
+  //   retryDelay: 1000,
+  // });
+
+  // if (status === "success") setCampaigns(data as Campaign[]);
+
+  // useEffect(() => {
+  //   if (error) {
+  //     toast({
+  //       variant: "destructive",
+  //       title: "Uh oh! Estamos com problemas em carregar as campanhas.",
+  //     });
+  //   }
+  // }, [error]);
+
+  function handleParticipar(id: string) {
+    setSelectedCampaignID(id);
+    console.log(id);
+    if (user)
+      postParticipar({ email: user?.mail, id })
+        .then(() => {
+          toast({
+            variant: "default",
+            title: "Participação confirmada",
+            description: "Você agora está participando da campanha.",
+          });
+        })
+        .catch((error) => {
+          toast({
+            variant: "destructive",
+            title: "Erro ao participar",
+            description: error.response.data.mensagem,
+          });
+        });
+  }
 
   useEffect(() => {
     getCampaigns()
@@ -108,10 +162,10 @@ export function Campaigns() {
   return (
     <div className="overflow-y-hidden h-screen">
       <NavBar />
-      {isLoading && (
+      {showMultiStep && (
         <Loader
           loadingStates={loadingStatesCampaigns}
-          loading={isLoading}
+          loading={showMultiStep}
           duration={1500}
           loop={false}
         />
@@ -246,7 +300,7 @@ export function Campaigns() {
 
           {campaigns.map((campaign) => (
             <div
-              key={campaign.ID}
+              key={campaign.id}
               className="mt-5 p-5 space-y-3 border rounded-md h-60 hover:shadow-lg transition duration-300 transform hover:scale-105 group/item"
             >
               <div className="flex items-center justify-between">
@@ -262,7 +316,7 @@ export function Campaigns() {
                     <span className="inline-block pl-1">{tipo}</span>
                   ))}
                 </div>
-                <p>Isto é uma campaign de testes por favor respeite</p>
+                <p>{campaign.Descricao}</p>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-slate-700">
@@ -280,7 +334,7 @@ export function Campaigns() {
                 </p>
                 <Button
                   className="bg-red-400 font-bold invisible group-hover/item:visible transition-all duration-300 ease-linear hover:bg-red-100 hover:text-black"
-                  onClick={() => setSelectedCampaignID(campaign.ID)}
+                  onClick={() => handleParticipar(campaign.id)}
                 >
                   Participar
                 </Button>

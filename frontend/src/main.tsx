@@ -13,7 +13,10 @@ import { AuthProvider } from "./contexts/auth.tsx";
 import { MsalProvider } from "@azure/msal-react";
 import { Toaster } from "./components/ui/toaster.tsx";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 export const msalInstance = new PublicClientApplication(msalConfig);
+const queryClient = new QueryClient();
 
 msalInstance.initialize().then(() => {
   const accounts = msalInstance.getAllAccounts();
@@ -36,8 +39,10 @@ msalInstance.initialize().then(() => {
     <React.StrictMode>
       <MsalProvider instance={msalInstance}>
         <AuthProvider>
-          <App />
-          <Toaster />
+          <QueryClientProvider client={queryClient}>
+            <App />
+            <Toaster />
+          </QueryClientProvider>
         </AuthProvider>
       </MsalProvider>
     </React.StrictMode>

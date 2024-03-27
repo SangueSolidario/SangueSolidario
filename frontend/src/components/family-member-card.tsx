@@ -6,8 +6,8 @@ export function FamilyMemberCard({ familiar }: { familiar: FamiliarMember }) {
   const { user } = useAuth();
   const handleDelete = (id: string) => {
     if (user)
-      deleteFamiliarMember({ id, email_doador: "maria@gmail.com" }).then(() => {
-        console.log("Familiar excluído");
+      deleteFamiliarMember({ id, email_doador: user.mail }).then((res) => {
+        console.log(res);
       });
   };
   return (
