@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Quote, UserRound } from "lucide-react";
+import { ArrowRight, Github, Quote } from "lucide-react";
 import Pacient from "@/assets/pacient.svg";
 import Goncalo from "@/assets/goncalo.jpg";
 import Joao from "@/assets/joao.jpg";

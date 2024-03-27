@@ -12,7 +12,7 @@ export function Map({ selectedCampaignID, campaigns }: MapProps) {
 
   useEffect(() => {
     const selectedCampaign = campaigns.find(
-      (campanha) => campanha.ID === selectedCampaignID
+      (campanha) => campanha.id === selectedCampaignID
     );
     if (selectedCampaign) {
       setCenter([
@@ -35,7 +35,7 @@ export function Map({ selectedCampaignID, campaigns }: MapProps) {
       />
       {campaigns.map((campanha) => (
         <Marker
-          key={campanha.ID}
+          key={campanha.id}
           position={[
             parseFloat(campanha.Coordenadas.lat),
             parseFloat(campanha.Coordenadas.lon),
