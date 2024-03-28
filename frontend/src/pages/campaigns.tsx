@@ -109,27 +109,26 @@ export function Campaigns() {
     }
   }, []);
 
-  // const { data, isLoading, status, error } = useQuery<Campaign[]>({
-  //   queryKey: ["campaigns"],
-  //   queryFn: getCampaigns,
-  // });
+  const { data, isLoading, status, error } = useQuery<Campaign[]>({
+    queryKey: ["campaigns"],
+    queryFn: getCampaigns,
+  });
 
-  // useEffect(() => {
-  //   if (status === "success" && campaigns.length === 0) {
-  //     setCampaigns(data as Campaign[]);
-  //   }
-  // }, [status, data, campaigns]);
+  useEffect(() => {
+    if (status === "success" && campaigns.length === 0) {
+      setCampaigns(data as Campaign[]);
+    }
+  }, [status, data, campaigns]);
 
-  // if (error) {
-  //   toast({
-  //     variant: "destructive",
-  //     title: "Uh oh! Estamos com problemas em carregar as campanhas.",
-  //   });
-  // }
+  if (error) {
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Estamos com problemas em carregar as campanhas.",
+    });
+  }
 
   function handleParticipar(id: string) {
     setSelectedCampaignID(id);
-    console.log(id);
     if (user)
       postParticipar({ email: user?.mail, id })
         .then(() => {
@@ -151,7 +150,7 @@ export function Campaigns() {
   return (
     <div className="overflow-y-hidden h-screen">
       <NavBar />
-      {/* <Spinner loading={isLoading} /> */}
+      <Spinner loading={isLoading} />
       {showMultiStep && (
         <Loader
           loadingStates={loadingStatesCampaigns}
