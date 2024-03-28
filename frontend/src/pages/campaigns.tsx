@@ -50,8 +50,7 @@ import { Spinner } from "@/components/spinner";
 
 const campaignSchema = z.object({
   Nome: z.string(),
-  DataInicio: z.coerce.date(),
-  DataFim: z.date().optional(),
+  DataInicio: z.object({ from: z.date(), to: z.date() }),
   Descricao: z.string(),
   TiposSanguineoNecessario: z.string(),
   Cidade: z.string(),
@@ -78,6 +77,7 @@ export function Campaigns() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const handleSubmit = useCallback(async (data: CampaignSchema) => {
     setShowMultiStep(true);
+
     try {
       const response = await axios.get(
         `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
@@ -88,8 +88,8 @@ export function Campaigns() {
 
       await postCampaign({
         Nome: data.Nome,
-        DataInicio: date?.from?.toISOString() ?? new Date().toISOString(),
-        DataFim: date?.to?.toISOString() ?? new Date().toISOString(),
+        DataInicio: data.DataInicio.from.toISOString(),
+        DataFim: data.DataInicio.to.toISOString(),
         Descricao: data.Descricao,
         TiposSanguineoNecessario: [data.TiposSanguineoNecessario],
         Cidade: data.Cidade,
@@ -109,23 +109,23 @@ export function Campaigns() {
     }
   }, []);
 
-  const { data, isLoading, status, error } = useQuery<Campaign[]>({
-    queryKey: ["campaigns"],
-    queryFn: getCampaigns,
-  });
+  // const { data, isLoading, status, error } = useQuery<Campaign[]>({
+  //   queryKey: ["campaigns"],
+  //   queryFn: getCampaigns,
+  // });
 
-  useEffect(() => {
-    if (status === "success" && campaigns.length === 0) {
-      setCampaigns(data as Campaign[]);
-    }
-  }, [status, data, campaigns]);
+  // useEffect(() => {
+  //   if (status === "success" && campaigns.length === 0) {
+  //     setCampaigns(data as Campaign[]);
+  //   }
+  // }, [status, data, campaigns]);
 
-  if (error) {
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Estamos com problemas em carregar as campanhas.",
-    });
-  }
+  // if (error) {
+  //   toast({
+  //     variant: "destructive",
+  //     title: "Uh oh! Estamos com problemas em carregar as campanhas.",
+  //   });
+  // }
 
   function handleParticipar(id: string) {
     setSelectedCampaignID(id);
@@ -151,7 +151,7 @@ export function Campaigns() {
   return (
     <div className="overflow-y-hidden h-screen">
       <NavBar />
-      <Spinner loading={isLoading} />
+      {/* <Spinner loading={isLoading} /> */}
       {showMultiStep && (
         <Loader
           loadingStates={loadingStatesCampaigns}
@@ -267,9 +267,23 @@ export function Campaigns() {
                                   initialFocus
                                   mode="range"
                                   defaultMonth={date?.from}
-                                  selected={date}
-                                  onDayClick={field.onChange}
-                                  onSelect={setDate}
+                                  selected={{ from: date?.from, to: date?.to }}
+                                  onDayClick={(selectedDate) => {
+                                    setDate({ ...date, from: selectedDate });
+                                  }}
+                                  onSelect={(range) => {
+                                    if (range) {
+                                      console.log(range);
+                                      setDate({
+                                        from: range.from,
+                                        to: range.to,
+                                      }); // Update local state
+                                      field.onChange({
+                                        from: range.from,
+                                        to: range.to,
+                                      });
+                                    }
+                                  }}
                                   numberOfMonths={2}
                                 />
                               </PopoverContent>
