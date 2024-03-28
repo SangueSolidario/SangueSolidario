@@ -111,7 +111,7 @@ export function Perfil() {
                   name="Nome"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome Campanha</FormLabel>
+                      <FormLabel>Nome</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -124,7 +124,7 @@ export function Perfil() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome Campanha</FormLabel>
+                      <FormLabel>E-mail</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -137,7 +137,7 @@ export function Perfil() {
                   name="TipoSanguineo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome Campanha</FormLabel>
+                      <FormLabel>Tipo Sanguineo</FormLabel>
                       <FormControl>
                         <SelectBlood {...field} />
                       </FormControl>
@@ -150,7 +150,7 @@ export function Perfil() {
                   name="dataNascimento"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome Campanha</FormLabel>
+                      <FormLabel>Data Nascimento</FormLabel>
                       <FormControl>
                         <Popover>
                           <PopoverTrigger asChild>
