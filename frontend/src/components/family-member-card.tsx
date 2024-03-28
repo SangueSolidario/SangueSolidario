@@ -1,13 +1,18 @@
 import { useAuth } from "@/contexts/auth";
 import { FamiliarMember, deleteFamiliarMember } from "@/services/apiRoutes";
 import { User2, X } from "lucide-react";
+import { toast } from "./ui/use-toast";
 
 export function FamilyMemberCard({ familiar }: { familiar: FamiliarMember }) {
   const { user } = useAuth();
   const handleDelete = (id: string) => {
     if (user)
-      deleteFamiliarMember({ id, email_doador: user.mail }).then((res) => {
-        console.log(res);
+      deleteFamiliarMember({ id, email_doador: user.mail }).then(() => {
+        toast({
+          variant: "default",
+          title: "Familiar excluído com sucesso",
+          description: "O familiar foi removido da sua lista de familiares.",
+        });
       });
   };
   return (

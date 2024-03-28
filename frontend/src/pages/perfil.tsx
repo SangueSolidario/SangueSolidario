@@ -2,6 +2,7 @@ import { FamilyMemberCard } from "@/components/family-member-card";
 import { NavBar } from "@/components/navbar";
 import { NewfamilyMember } from "@/components/new-family-member";
 import { SelectBlood } from "@/components/select-blood";
+import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -28,6 +29,7 @@ import {
   postDoadorForm,
 } from "@/services/apiRoutes";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -57,20 +59,24 @@ export function Perfil() {
     },
   });
 
+  const { data, status, isLoading, error } = useQuery<FamiliarMember[]>({
+    queryKey: ["familiares", user?.mail],
+    queryFn: () => getFamiliarMembers({ email: user?.mail ?? "" }),
+  });
+
   useEffect(() => {
-    if (user)
-      getFamiliarMembers({ email: user.mail })
-        .then((data) => {
-          setFamiliares(data);
-        })
-        .catch(() => {
-          toast({
-            variant: "destructive",
-            title: "Erro ao encontrar familiares",
-            description: "Tente novamente mais tarde.",
-          });
-        });
-  }, []);
+    if (status === "success" && familiares.length === 0) {
+      setFamiliares(data as FamiliarMember[]);
+    }
+  }, [status, data, familiares]);
+
+  if (error) {
+    toast({
+      variant: "destructive",
+      title: "Erro ao encontrar familiares",
+      description: "Tente novamente mais tarde.",
+    });
+  }
 
   function handleSubmit(data: PerfilSchema) {
     postDoadorForm(data).then((res) => {
@@ -86,7 +92,7 @@ export function Perfil() {
   return (
     <div>
       <NavBar />
-
+      <Spinner loading={isLoading} />
       <div className="container mx-auto mt-5">
         <Tabs defaultValue="account" className="w-full">
           <TabsList className="w-full bg-slate-200">

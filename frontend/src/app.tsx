@@ -3,6 +3,7 @@ import { useAuth } from "./contexts/auth";
 import { Campaigns } from "./pages/campaigns";
 import { Home } from "./pages/home";
 import { Perfil } from "./pages/perfil";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const SignInRoutes = () => {
   return (
@@ -23,7 +24,15 @@ const SignOutRoutes = () => {
   );
 };
 
+const queryClient = new QueryClient();
+
 export function App() {
   const { signed } = useAuth();
-  return <Router>{signed ? <SignInRoutes /> : <SignOutRoutes />}</Router>;
+  return (
+    <Router>
+      <QueryClientProvider client={queryClient}>
+        {signed ? <SignInRoutes /> : <SignOutRoutes />}
+      </QueryClientProvider>
+    </Router>
+  );
 }

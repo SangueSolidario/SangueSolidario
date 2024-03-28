@@ -33,7 +33,7 @@ import {
 } from "@/services/apiRoutes";
 import { loadingStatesCampaigns } from "@/utils/multi-step-states";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDays, format, formatDistance } from "date-fns";
+import { addDays, format, formatDistance, parseISO } from "date-fns";
 import { CalendarIcon, CirclePlus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
@@ -45,6 +45,8 @@ import { ptBR } from "date-fns/locale";
 
 import axios from "axios";
 import { useAuth } from "@/contexts/auth";
+import { useQuery } from "@tanstack/react-query";
+import { Spinner } from "@/components/spinner";
 
 const campaignSchema = z.object({
   Nome: z.string(),
@@ -107,23 +109,23 @@ export function Campaigns() {
     }
   }, []);
 
-  // const { data, isLoading, status, error } = useQuery({
-  //   queryKey: [""],
-  //   queryFn: getCampaigns,
-  //   retry: 1,
-  //   retryDelay: 1000,
-  // });
+  const { data, isLoading, status, error } = useQuery<Campaign[]>({
+    queryKey: ["campaigns"],
+    queryFn: getCampaigns,
+  });
 
-  // if (status === "success") setCampaigns(data as Campaign[]);
+  useEffect(() => {
+    if (status === "success" && campaigns.length === 0) {
+      setCampaigns(data as Campaign[]);
+    }
+  }, [status, data, campaigns]);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     toast({
-  //       variant: "destructive",
-  //       title: "Uh oh! Estamos com problemas em carregar as campanhas.",
-  //     });
-  //   }
-  // }, [error]);
+  if (error) {
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Estamos com problemas em carregar as campanhas.",
+    });
+  }
 
   function handleParticipar(id: string) {
     setSelectedCampaignID(id);
@@ -146,22 +148,10 @@ export function Campaigns() {
         });
   }
 
-  useEffect(() => {
-    getCampaigns()
-      .then((data) => {
-        setCampaigns(data);
-      })
-      .catch(() => {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Estamos com problemas em carregar as campanhas.",
-        });
-      });
-  }, []);
-
   return (
     <div className="overflow-y-hidden h-screen">
       <NavBar />
+      <Spinner loading={isLoading} />
       {showMultiStep && (
         <Loader
           loadingStates={loadingStatesCampaigns}
@@ -313,7 +303,9 @@ export function Campaigns() {
                 <span>Tipos Sanguineos:</span>
                 <div className="">
                   {campaign.TiposSanguineoNecessario.map((tipo) => (
-                    <span className="inline-block pl-1">{tipo}</span>
+                    <span key={tipo} className="inline-block pl-1">
+                      {tipo}
+                    </span>
                   ))}
                 </div>
                 <p>{campaign.Descricao}</p>
@@ -322,13 +314,9 @@ export function Campaigns() {
                 <p className="text-slate-700">
                   Termina em{" "}
                   <span className="font-bold">
-                    {formatDistance(
-                      new Date(campaign.DataInicio),
-                      new Date(campaign.DataFim),
-                      {
-                        locale: ptBR,
-                      }
-                    )}
+                    {formatDistance(campaign.DataInicio, campaign.DataFim, {
+                      locale: ptBR,
+                    })}
                     !
                   </span>
                 </p>
