@@ -1,4 +1,4 @@
-#Sangue Solidário
+# Sangue Solidário
 Sangue Solidário is a web application designed to connect blood donors with donation campaigns and facilitate the management of family members' blood types.
 
 ## Main features
