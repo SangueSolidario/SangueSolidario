@@ -79,7 +79,7 @@ export function Perfil() {
   }
 
   function handleSubmit(data: PerfilSchema) {
-    postDoadorForm(data).then((res) => {
+    postDoadorForm(data).then(() => {
       toast({
         variant: "default",
         title: "Perfil atualizado",
