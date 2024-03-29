@@ -80,7 +80,6 @@ export function Perfil() {
 
   function handleSubmit(data: PerfilSchema) {
     postDoadorForm(data).then((res) => {
-      console.log(res);
       toast({
         variant: "default",
         title: "Perfil atualizado",
@@ -105,7 +104,10 @@ export function Perfil() {
           </TabsList>
           <TabsContent value="account">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)}>
+              <form
+                onSubmit={form.handleSubmit(handleSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={form.control}
                   name="Nome"
@@ -149,7 +151,7 @@ export function Perfil() {
                   control={form.control}
                   name="dataNascimento"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Data Nascimento</FormLabel>
                       <FormControl>
                         <Popover>
@@ -157,7 +159,7 @@ export function Perfil() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-[280px] justify-start text-left font-normal",
+                                "justify-start text-left font-normal",
                                 !date && "text-muted-foreground"
                               )}
                             >
@@ -165,7 +167,7 @@ export function Perfil() {
                               {date ? (
                                 format(date, "PPP")
                               ) : (
-                                <span>Pick a date</span>
+                                <span>Selecione uma Data</span>
                               )}
                             </Button>
                           </PopoverTrigger>
@@ -184,7 +186,7 @@ export function Perfil() {
                     </FormItem>
                   )}
                 />
-                <Button>Guardar</Button>
+                <Button className="bg-red-500 hover:bg-red-600">Guardar</Button>
               </form>
             </Form>
           </TabsContent>

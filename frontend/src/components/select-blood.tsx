@@ -23,7 +23,7 @@ export function SelectBlood(
 ) {
   return (
     <Select onValueChange={field.onChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger>
         <SelectValue placeholder="Tipos de Sangue" />
       </SelectTrigger>
       <SelectContent>

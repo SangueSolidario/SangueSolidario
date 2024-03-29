@@ -161,145 +161,164 @@ export function Campaigns() {
       )}
       <div className="container flex flex-1 mx-auto pt-20 md:flex-row space-x-5">
         <aside className="overflow-auto h-[75vh] w-[45vw] px-5">
-          <div className="flex flex-wrap items-center justify-center space-y-3 rounded-md h-40 border-dashed border-2 hover:bg-slate-50">
-            <Dialog>
-              <DialogTrigger className="flex flex-col items-center justify-center">
-                <CirclePlus className="text-slate-300" size={50} />
-                <span className="mt-2 text-sm text-gray-500">
-                  Adicionar nova Campanha
-                </span>
-              </DialogTrigger>
-              <DialogContent>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(handleSubmit)}>
-                    <FormField
-                      control={form.control}
-                      name="Nome"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Nome Campanha</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Nome da Campanha" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="Descricao"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Descriação Campanha</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Descriação da Campanha"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="Cidade"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Local Campanha</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Local da Campanha" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="TiposSanguineoNecessario"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Tipos de Sangue Necessários</FormLabel>
-                          <FormControl>
-                            <SelectBlood {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="DataInicio"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Data</FormLabel>
-                          <FormControl>
-                            <Popover>
-                              <PopoverTrigger asChild>
-                                <Button
-                                  id="date"
-                                  variant={"outline"}
-                                  className={cn(
-                                    !date && "text-muted-foreground"
-                                  )}
-                                >
-                                  <CalendarIcon className="mr-2 h-4 w-4" />
-                                  {date?.from ? (
-                                    date.to ? (
-                                      <>
-                                        {format(date.from, "LLL dd, y")} -{" "}
-                                        {format(date.to, "LLL dd, y")}
-                                      </>
+          {user && (
+            <div className="flex flex-wrap items-center justify-center space-y-3 rounded-md h-40 border-dashed border-2 hover:bg-slate-50">
+              <Dialog>
+                <DialogTrigger className="flex flex-col items-center justify-center">
+                  <CirclePlus className="text-slate-300" size={50} />
+                  <span className="mt-2 text-sm text-gray-500">
+                    Adicionar nova Campanha
+                  </span>
+                </DialogTrigger>
+                <DialogContent>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(handleSubmit)}
+                      className="space-y-4"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="Nome"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nome Campanha</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Nome da Campanha"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="Descricao"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Descriação Campanha</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Descriação da Campanha"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="Cidade"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Local Campanha</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Local da Campanha"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="TiposSanguineoNecessario"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Tipos de Sangue Necessários</FormLabel>
+                            <FormControl>
+                              <SelectBlood {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="DataInicio"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>Data</FormLabel>
+                            <FormControl>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    id="date"
+                                    variant={"outline"}
+                                    className={cn(
+                                      !date && "text-muted-foreground"
+                                    )}
+                                  >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date?.from ? (
+                                      date.to ? (
+                                        <>
+                                          {format(date.from, "LLL dd, y")} -{" "}
+                                          {format(date.to, "LLL dd, y")}
+                                        </>
+                                      ) : (
+                                        format(date.from, "LLL dd, y")
+                                      )
                                     ) : (
-                                      format(date.from, "LLL dd, y")
-                                    )
-                                  ) : (
-                                    <span>Selecione uma data</span>
-                                  )}
-                                </Button>
-                              </PopoverTrigger>
-                              <PopoverContent
-                                className="w-auto p-0"
-                                align="start"
-                              >
-                                <Calendar
-                                  initialFocus
-                                  mode="range"
-                                  defaultMonth={date?.from}
-                                  selected={{ from: date?.from, to: date?.to }}
-                                  onDayClick={(selectedDate) => {
-                                    setDate({ ...date, from: selectedDate });
-                                  }}
-                                  onSelect={(range) => {
-                                    if (range) {
-                                      console.log(range);
-                                      setDate({
-                                        from: range.from,
-                                        to: range.to,
-                                      }); // Update local state
-                                      field.onChange({
-                                        from: range.from,
-                                        to: range.to,
-                                      });
-                                    }
-                                  }}
-                                  numberOfMonths={2}
-                                />
-                              </PopoverContent>
-                            </Popover>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <DialogFooter>
-                      <Button type="submit">Criar</Button>
-                    </DialogFooter>
-                  </form>
-                </Form>
-              </DialogContent>
-            </Dialog>
-          </div>
+                                      <span>Selecione uma data</span>
+                                    )}
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent
+                                  className="w-auto p-0"
+                                  align="start"
+                                >
+                                  <Calendar
+                                    initialFocus
+                                    mode="range"
+                                    defaultMonth={date?.from}
+                                    selected={{
+                                      from: date?.from,
+                                      to: date?.to,
+                                    }}
+                                    onDayClick={(selectedDate) => {
+                                      setDate({ ...date, from: selectedDate });
+                                    }}
+                                    onSelect={(range) => {
+                                      if (range) {
+                                        console.log(range);
+                                        setDate({
+                                          from: range.from,
+                                          to: range.to,
+                                        }); // Update local state
+                                        field.onChange({
+                                          from: range.from,
+                                          to: range.to,
+                                        });
+                                      }
+                                    }}
+                                    numberOfMonths={2}
+                                  />
+                                </PopoverContent>
+                              </Popover>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <DialogFooter>
+                        <Button
+                          type="submit"
+                          className="bg-red-500 hover:bg-red-600"
+                        >
+                          Criar
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
+            </div>
+          )}
 
           {campaigns.map((campaign) => (
             <div

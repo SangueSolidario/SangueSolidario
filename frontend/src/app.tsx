@@ -20,6 +20,7 @@ const SignOutRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/*" element={<Home />} />
+      <Route path="/campanhas" element={<Campaigns />} />
     </Routes>
   );
 };
