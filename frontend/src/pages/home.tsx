@@ -94,7 +94,7 @@ export function Home() {
                   cirurgias e recém-nascidos.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
-                  Learn More
+                  Mais
                   <ArrowRight size={20} className="ml-1" />
                 </a>
               </div>
@@ -117,7 +117,7 @@ export function Home() {
                   interior e conexão com os outros.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
-                  Learn More
+                  Mais
                   <ArrowRight size={20} className="ml-1" />
                 </a>
               </div>
@@ -137,7 +137,7 @@ export function Home() {
                   cancro.
                 </p>
                 <a className="mt-3 text-red-500 inline-flex items-center">
-                  Learn More
+                  Mais
                   <ArrowRight size={20} className="ml-1" />
                 </a>
               </div>
@@ -148,14 +148,12 @@ export function Home() {
       <section className="text-gray-700 body-font border-t border-gray-200">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-              Our Team
-            </h1>
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900"></h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-              Introducing our dynamic team dedicated to innovation and
-              excellence. With diverse expertise and a passion for
-              problem-solving, we're committed to delivering cutting-edge
-              solutions tailored to your needs.
+              Apresentamos a nossa equipa dinâmica dedicada à inovação e à
+              excelência. Com uma experiência diversificada e uma paixão pela
+              resolução de problemas, estamos empenhados em fornecer soluções de
+              ponta adaptadas às suas necessidades.
             </p>
           </div>
           <div className="flex flex-wrap justify-center -m-2">
