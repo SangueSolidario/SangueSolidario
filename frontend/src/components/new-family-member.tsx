@@ -70,7 +70,10 @@ export function NewfamilyMember() {
       </DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             <FormField
               control={form.control}
               name="NomeFamiliar"
@@ -111,7 +114,9 @@ export function NewfamilyMember() {
               )}
             />
             <DialogFooter>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" className="bg-red-500 hover:bg-red-600">
+                Guardar
+              </Button>
             </DialogFooter>
           </form>
         </Form>

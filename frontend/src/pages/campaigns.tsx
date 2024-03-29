@@ -197,10 +197,10 @@ export function Campaigns() {
                         name="Descricao"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Descriação Campanha</FormLabel>
+                            <FormLabel>Descrição Campanha</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="Descriação da Campanha"
+                                placeholder="Descrição da Campanha"
                                 {...field}
                               />
                             </FormControl>
@@ -285,7 +285,6 @@ export function Campaigns() {
                                     }}
                                     onSelect={(range) => {
                                       if (range) {
-                                        console.log(range);
                                         setDate({
                                           from: range.from,
                                           to: range.to,
