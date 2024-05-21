@@ -81,7 +81,7 @@ export function NewfamilyMember() {
                 <FormItem>
                   <FormLabel>Nome Familiar</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nome da Campanha" {...field} />
+                    <Input placeholder="Nome do Familiar" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

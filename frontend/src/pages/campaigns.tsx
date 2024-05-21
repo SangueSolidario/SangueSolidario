@@ -43,10 +43,10 @@ import { z } from "zod";
 import { toast } from "@/components/ui/use-toast";
 import { ptBR } from "date-fns/locale";
 
-import axios from "axios";
+import { Spinner } from "@/components/spinner";
 import { useAuth } from "@/contexts/auth";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "@/components/spinner";
+import axios from "axios";
 
 const campaignSchema = z.object({
   Nome: z.string(),
@@ -54,6 +54,7 @@ const campaignSchema = z.object({
   Descricao: z.string(),
   TiposSanguineoNecessario: z.string(),
   Cidade: z.string(),
+  File: z.instanceof(File).optional(),
 });
 
 export type CampaignSchema = z.infer<typeof campaignSchema>;
@@ -64,6 +65,14 @@ export function Campaigns() {
 
   const form = useForm<CampaignSchema>({
     resolver: zodResolver(campaignSchema),
+    defaultValues: {
+      Nome: "",
+      DataInicio: { from: new Date(), to: addDays(new Date(), 15) },
+      Descricao: "",
+      TiposSanguineoNecessario: "",
+      Cidade: "",
+      File: undefined,
+    },
   });
 
   const [selectedCampaignID, setSelectedCampaignID] = useState<string | null>(
@@ -299,6 +308,26 @@ export function Campaigns() {
                                   />
                                 </PopoverContent>
                               </Popover>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="File"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                accept=".jpg, .jpeg, .png, .svg, .gif, .mp4"
+                                type="file"
+                                onChange={(e) =>
+                                  field.onChange(
+                                    e.target.files ? e.target.files[0] : null
+                                  )
+                                }
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
