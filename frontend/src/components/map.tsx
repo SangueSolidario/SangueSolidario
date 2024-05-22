@@ -2,10 +2,20 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { Campaign } from "@/services/apiRoutes";
+import { Icon } from "leaflet";
+import Blood from "@/assets/blood.svg";
+
 interface MapProps {
   selectedCampaignID: string | null;
   campaigns: Campaign[];
 }
+
+const icon = new Icon({
+  className: "rounded-full bg-red-500",
+  iconUrl: Blood,
+  iconRetinaUrl: Blood,
+  iconSize: [20, 20],
+});
 
 export function Map({ selectedCampaignID, campaigns }: MapProps) {
   const [center, setCenter] = useState<[number, number]>([39.8239, -7.49189]);
@@ -40,6 +50,7 @@ export function Map({ selectedCampaignID, campaigns }: MapProps) {
             parseFloat(campanha.Coordenadas.lat),
             parseFloat(campanha.Coordenadas.lon),
           ]}
+          icon={icon}
         >
           <Popup>{campanha.Descricao}</Popup>
         </Marker>

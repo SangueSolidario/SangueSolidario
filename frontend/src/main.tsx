@@ -8,12 +8,12 @@ import {
   EventType,
   PublicClientApplication,
 } from "@azure/msal-browser";
-import { msalConfig } from "./contexts/authConfig.ts";
+import { msalConfigWeb } from "./contexts/authConfig.ts";
 import { AuthProvider } from "./contexts/auth.tsx";
 import { MsalProvider } from "@azure/msal-react";
 import { Toaster } from "./components/ui/toaster.tsx";
 
-export const msalInstance = new PublicClientApplication(msalConfig);
+export const msalInstance = new PublicClientApplication(msalConfigWeb);
 
 msalInstance.initialize().then(() => {
   const accounts = msalInstance.getAllAccounts();

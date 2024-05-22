@@ -86,7 +86,6 @@ export function Campaigns() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const handleSubmit = useCallback(async (data: CampaignSchema) => {
     setShowMultiStep(true);
-
     try {
       const response = await axios.get(
         `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
@@ -107,6 +106,7 @@ export function Campaigns() {
           lon: lon,
         },
         Status: "Ativa",
+        Imagem: data.File!,
       }).then((campaign) => {
         setCampaigns((prev) => [...prev, campaign]);
         setTimeout(() => {
@@ -184,6 +184,7 @@ export function Campaigns() {
                     <form
                       onSubmit={form.handleSubmit(handleSubmit)}
                       className="space-y-4"
+                      encType="multipart/form-data"
                     >
                       <FormField
                         control={form.control}

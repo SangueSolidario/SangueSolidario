@@ -5,7 +5,7 @@ export interface Campaign {
   Nome: string;
   DataInicio: string;
   DataFim: string;
-  Imagem?: string;
+  Imagem: string;
   Descricao: string;
   Coordenadas: {
     lat: string;
@@ -28,6 +28,7 @@ export interface CampaignForm {
   TiposSanguineoNecessario: string[];
   Cidade: string;
   Status: string;
+  Imagem: File | undefined;
 }
 
 export interface FamiliarMember {
@@ -72,51 +73,115 @@ export interface ParticipateCampaign {
 }
 
 export function getCampaigns(): Promise<Campaign[]> {
-  return api.get("/campanhas").then((response) => response.data);
+  return api
+    .get("/campanhas", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => response.data);
 }
 
 export function postCampaign(campaign: CampaignForm): Promise<Campaign> {
-  return api.post("/campanha", campaign).then((response) => {
-    return response.data;
+  console.log(campaign);
+  const formData = new FormData();
+  formData.append("Nome", campaign.Nome);
+  formData.append("DataInicio", campaign.DataInicio);
+  formData.append("DataFim", campaign.DataFim);
+  formData.append("Descricao", campaign.Descricao);
+  formData.append("Coordenadas", JSON.stringify(campaign.Coordenadas));
+  campaign.TiposSanguineoNecessario.forEach((tipo) => {
+    formData.append("TiposSanguineoNecessario[]", tipo);
   });
+
+  formData.append("Cidade", campaign.Cidade);
+  formData.append("Status", campaign.Status);
+  formData.append("Imagem", campaign.Imagem!);
+  console.log(formData);
+  return api
+    .post("/campanha", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 export function getFamiliarMembers(
   data: FamiliarMemberData
 ): Promise<FamiliarMember[]> {
-  return api.post("/familiares", data).then((response) => response.data);
+  return api
+    .post("/familiares", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => response.data);
 }
 
 export function postFamiliarMember(
   familiar: FamiliarMemberForm
 ): Promise<FamiliarMember> {
-  return api.post("/familiar", familiar).then((response) => {
-    return response.data;
-  });
+  return api
+    .post("/familiar", familiar, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }
 
 export function postDoador(data: DoadorPost): Promise<void> {
-  return api.post("/doador", data).then((response) => {
-    return response.data;
-  });
+  return api
+    .post("/doador", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }
 
 export function postDoadorForm(data: Doador): Promise<void> {
-  return api.post("/doador", data).then((response) => {
-    return response.data;
-  });
+  return api
+    .post("/doador", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }
 
 export function postParticipar(data: ParticipateCampaign): Promise<void> {
-  return api.post("/doador/campanha", data).then((response) => {
-    return response.data;
-  });
+  return api
+    .post("/doador/campanha", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }
 
 export function deleteFamiliarMember(data: GenericDelete): Promise<void> {
   return api
     .delete("/familiar", {
       data: data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       return response.data;

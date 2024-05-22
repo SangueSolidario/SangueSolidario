@@ -6,20 +6,27 @@ const tenantId =
   import.meta.env.VITE_TENANT_ID ||
   import.meta.env.WEBSITE_AUTH_AAD_ALLOWED_TENANTS;
 
-export const msalConfig: Configuration = {
+export const msalConfigWeb: Configuration = {
   auth: {
-    clientId: clientId ? clientId : clientIdProd,
-    authority: `https://sts.windows.net/${tenantId}/v2.0`,
+    clientId: clientId || clientIdProd,
+    authority: `https://login.microsoftonline.com/${tenantId}`,
     redirectUri: "/",
     postLogoutRedirectUri: "/",
   },
   system: {
     allowNativeBroker: false,
   },
+  cache: {
+    cacheLocation: "localStorage",
+    storeAuthStateInCookie: false,
+  },
 };
 
-export const loginRequest: PopupRequest = {
+export const graphLoginRequest: PopupRequest = {
   scopes: ["User.Read"],
+};
+export const apiLoginRequest: PopupRequest = {
+  scopes: [`api://${clientId}/API.Call`],
 };
 
 export const graphConfig = {

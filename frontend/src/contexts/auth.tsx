@@ -1,4 +1,4 @@
-import { callMsGraph } from "@/utils/graph";
+import { callCustomApi, callMsGraph } from "@/utils/graph";
 import {
   AccountInfo,
   InteractionRequiredAuthError,
@@ -12,7 +12,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { loginRequest } from "@/contexts/authConfig";
+import { graphLoginRequest, apiLoginRequest } from "@/contexts/authConfig";
 import { postDoador } from "@/services/apiRoutes";
 
 type GraphData = {
@@ -42,23 +42,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   const [user, setUser] = useState<GraphData | null>(null);
 
   useEffect(() => {
-    if (!graphData && inProgress === InteractionStatus.None) {
-      callMsGraph()
-        .then((response) => {
-          setGraphData(response);
-          setUser(response);
-        })
-        .catch((error) => {
-          if (error instanceof InteractionRequiredAuthError) {
-            instance.acquireTokenRedirect({
-              ...loginRequest,
-              account: instance.getActiveAccount() as AccountInfo,
-              redirectUri: "/",
-            });
-          }
+    const fetchProfile = async () => {
+      try {
+        const response = await callMsGraph();
+        await callCustomApi();
+        setGraphData(response);
+        setUser(response);
+        postDoador({ email: response.mail, Nome: response.displayName });
+
+        // Acquire token for custom API after getting user data
+        await instance.acquireTokenSilent({
+          ...apiLoginRequest,
+          account: instance.getActiveAccount() as AccountInfo,
         });
+      } catch (error) {
+        if (error instanceof InteractionRequiredAuthError) {
+          instance.acquireTokenRedirect({
+            ...graphLoginRequest,
+            account: instance.getActiveAccount() as AccountInfo,
+            redirectUri: "/",
+          });
+        } else {
+          console.error(error);
+        }
+      }
+    };
+
+    if (!graphData && inProgress === InteractionStatus.None) {
+      fetchProfile();
     }
-    if (user) postDoador({ email: user.mail, Nome: user.displayName });
   }, [graphData, inProgress, instance]);
 
   return (
