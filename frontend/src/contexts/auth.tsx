@@ -45,11 +45,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     const fetchProfile = async () => {
       try {
         const response = await callMsGraph();
+
         await callCustomApi();
+
         setGraphData(response);
         setUser(response);
-        postDoador({ email: response.mail, Nome: response.displayName });
-
+        await postDoador({
+          email: response.mail,
+          Nome: response.displayName,
+        });
         // Acquire token for custom API after getting user data
         await instance.acquireTokenSilent({
           ...apiLoginRequest,

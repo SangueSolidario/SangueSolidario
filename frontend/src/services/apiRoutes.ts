@@ -83,7 +83,6 @@ export function getCampaigns(): Promise<Campaign[]> {
 }
 
 export function postCampaign(campaign: CampaignForm): Promise<Campaign> {
-  console.log(campaign);
   const formData = new FormData();
   formData.append("Nome", campaign.Nome);
   formData.append("DataInicio", campaign.DataInicio);
@@ -97,7 +96,6 @@ export function postCampaign(campaign: CampaignForm): Promise<Campaign> {
   formData.append("Cidade", campaign.Cidade);
   formData.append("Status", campaign.Status);
   formData.append("Imagem", campaign.Imagem!);
-  console.log(formData);
   return api
     .post("/campanha", formData, {
       headers: {
@@ -122,7 +120,11 @@ export function getFamiliarMembers(
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-    .then((response) => response.data);
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+      return [];
+    });
 }
 
 export function postFamiliarMember(

@@ -1,16 +1,32 @@
+# Use a node base image
 FROM node:18-alpine as build
 
+# Set working directory
 WORKDIR /app
-COPY . /app
 
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the application
 RUN npm run build
 
-FROM ubuntu
-RUN apt-get update
-RUN apt-get install nginx -y
-COPY --from=build /app/dist /var/www/html/
+# Use a lightweight Nginx image
+FROM nginx:alpine
+
+# Copy built files from previous stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy custom Nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
 EXPOSE 80
-CMD ["nginx","-g","daemon off;"]
 
-
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
